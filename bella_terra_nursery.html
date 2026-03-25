@@ -1,0 +1,2854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bella Terra Nursery</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#18170F;--ink2:#3A3929;--ink3:#6A6858;--ink4:#9A9884;
+  --paper:#F7F4EC;--paper2:#EEEADF;--paper3:#E4E0D3;
+  --green:#1E4D0F;--green2:#2E6E18;--green3:#4A9425;--green-lt:#EBF5DE;
+  --amber:#7A3E05;--amber2:#B85C0A;--amber3:#E87C1A;--amber-lt:#FDF1DC;
+  --red:#7A1212;--red2:#C0271B;--red3:#E84B3A;--red-lt:#FDEAEA;
+  --blue:#0A3260;--blue2:#1255A8;--blue3:#3D7FD4;--blue-lt:#E5EEFB;
+  --gold:#8B6914;--gold2:#C49A1E;--gold3:#F0C040;--gold-lt:#FDF8E1;
+  --border:#CCC9B8;--border2:#E0DDD0;
+  --r4:4px;--r6:6px;--r8:8px;--r12:12px;
+  --shadow:0 1px 3px rgba(0,0,0,.08);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;font-size:14px;min-height:100vh}
+button,input,select,textarea{font-family:'DM Sans',sans-serif}
+.app-header{background:var(--green);padding:0;display:flex;align-items:stretch;border-bottom:3px solid var(--green3)}
+.hdr-left{padding:11px 16px;flex:1}
+.hdr-brand{font-family:'Bebas Neue',sans-serif;font-size:21px;color:#fff;letter-spacing:1px;line-height:1}
+.hdr-sub{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.hdr-right{padding:8px 14px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:2px}
+.hdr-stat{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.4)}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--green);border-top:2px solid var(--green2);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nb{flex:1;border:none;background:none;color:rgba(255,255,255,.5);padding:7px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:8px;font-family:'DM Mono',monospace;letter-spacing:.2px;text-transform:uppercase;cursor:pointer;transition:all .15s;position:relative}
+.nb.act{color:#fff;background:rgba(255,255,255,.1)}
+.nb .ni{font-size:17px;line-height:1}
+.nbadge{position:absolute;top:3px;right:calc(50% - 16px);background:var(--red3);color:#fff;font-size:8px;font-weight:700;border-radius:100px;padding:1px 4px;display:none}
+.content{max-width:960px;margin:0 auto;padding:14px 14px 80px}
+.screen{display:none}.screen.active{display:block;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:#fff;border:1px solid var(--border2);border-radius:var(--r8);margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border2);background:var(--paper)}
+.chl{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.cstep{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--green3);line-height:1;width:24px;flex-shrink:0}
+.ctitle{font-size:14px;font-weight:600}
+.csub{font-size:11px;color:var(--ink3);margin-top:1px}
+.cb{padding:13px}
+.stag{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.stag::before{content:'';display:block;width:14px;height:2px;background:var(--green3)}
+.fr{display:grid;gap:10px;margin-bottom:10px}
+.fc2{grid-template-columns:1fr 1fr}.fc3{grid-template-columns:1fr 1fr 1fr}.fc4{grid-template-columns:1fr 1fr 1fr 1fr}
+.f{display:flex;flex-direction:column;gap:4px}
+.f label{font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;font-family:'DM Mono',monospace;color:var(--ink3)}
+.f input,.f select,.f textarea{border:1px solid var(--border);border-radius:var(--r4);padding:7px 10px;font-size:13px;background:var(--paper);color:var(--ink)}
+.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--green3);outline-offset:0;background:#fff}
+.f textarea{resize:vertical;min-height:52px}
+.btn{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:500;padding:8px 14px;border-radius:var(--r6);border:1px solid;cursor:pointer;transition:all .12s}
+.bg{background:var(--green2);color:#fff;border-color:var(--green)}.bg:hover{background:var(--green3)}
+.bo{background:#fff;color:var(--ink);border-color:var(--border)}.bo:hover{background:var(--paper2)}
+.br{background:var(--red2);color:#fff;border-color:var(--red)}
+.ba{background:var(--amber2);color:#fff;border-color:var(--amber)}
+.bsm{font-size:11px;padding:5px 10px}
+.brow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.al{display:flex;gap:10px;padding:10px 12px;border-radius:var(--r6);font-size:13px;margin-bottom:10px;line-height:1.5}
+.alg{background:var(--green-lt);border:1px solid var(--green3);color:var(--green)}
+.ala{background:var(--amber-lt);border:1px solid var(--amber3);color:var(--amber)}
+.alr{background:var(--red-lt);border:1px solid var(--red3);color:var(--red)}
+.alb{background:var(--blue-lt);border:1px solid var(--blue3);color:var(--blue)}
+.ali{font-size:16px;flex-shrink:0;margin-top:1px}
+.chip{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:10px;padding:2px 7px;border-radius:100px;border:1px solid;white-space:nowrap}
+.cg{background:var(--green-lt);border-color:var(--green3);color:var(--green2)}
+.cr{background:var(--red-lt);border-color:var(--red3);color:var(--red2)}
+.ca{background:var(--amber-lt);border-color:var(--amber3);color:var(--amber2)}
+.cb2{background:var(--blue-lt);border-color:var(--blue3);color:var(--blue2)}
+.cgo{background:var(--gold-lt);border-color:var(--gold2);color:var(--gold)}
+.div{height:1px;background:var(--border2);margin:12px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{background:var(--paper);padding:7px 10px;text-align:left;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--border)}
+.tbl td{padding:7px 10px;border-bottom:1px solid var(--border2);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--paper)}
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto}
+.mbg.open{display:flex}
+.modal{background:#fff;border-radius:var(--r12);width:100%;max-width:620px;margin:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border2);background:var(--paper)}
+.mt{font-weight:600;font-size:15px}
+.mc{font-size:22px;color:var(--ink3);border:none;background:none;cursor:pointer}
+.mb{padding:16px}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.sb{background:var(--paper);border:1px solid var(--border2);border-radius:var(--r8);padding:12px;text-align:center}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1}
+.sl{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.search-wrap{position:relative;margin-bottom:10px}
+.search-wrap input{width:100%;padding:9px 12px 9px 36px;border:1px solid var(--border);border-radius:var(--r6);font-size:13px;background:var(--paper)}
+.search-wrap::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:8px 16px;border-radius:100px;font-size:12px;font-family:'DM Mono',monospace;opacity:0;transition:all .3s;z-index:500;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.loc-pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:'DM Mono',monospace;padding:2px 8px;border-radius:100px;border:1px solid}
+.loc-office{background:#EBF5DE;border-color:#4A9425;color:#1E4D0F}
+.loc-pump{background:#E5EEFB;border-color:#3D7FD4;color:#0A3260}
+.loc-bt{background:#FDF8E1;border-color:#C49A1E;color:#8B6914}
+.loc-vendor{background:#F7F4EC;border-color:#9A9884;color:#3A3929}
+.dup-warning{background:var(--amber-lt);border:2px solid var(--amber3);border-radius:var(--r8);padding:12px;margin-bottom:10px}
+.scan-preview{border:2px dashed var(--border);border-radius:var(--r8);padding:20px;text-align:center;background:var(--paper2);cursor:pointer;transition:all .15s}
+.scan-preview:hover{border-color:var(--green3);background:var(--green-lt)}
+.scan-preview img{max-width:100%;border-radius:var(--r4);margin-bottom:10px}
+.harden-row{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border2);font-size:12px}
+.harden-row:last-child{border-bottom:none}
+.flag-or{background:var(--amber-lt);border:2px solid var(--amber3);border-radius:var(--r8);padding:14px;margin-bottom:12px}
+@media(max-width:580px){.fc3,.fc4{grid-template-columns:1fr 1fr}.sg{grid-template-columns:repeat(3,1fr)}}
+@media print{.bnav,.app-header,.no-print{display:none!important}.content{padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="hdr-left">
+    <div class="hdr-brand">Bella Terra Nursery</div>
+    <div class="hdr-sub">Woodland WA · Office · Pump House · BT Landholdings</div>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-stat" id="hdr-date"></div>
+    <div class="hdr-stat" id="hdr-stat"></div>
+  </div>
+</div>
+
+<nav class="bnav">
+  <button class="nb act" onclick="nav('dash')" id="nb-dash"><span class="ni">🏠</span>Home</button>
+  <button class="nb" onclick="nav('pot')" id="nb-pot"><span class="ni">🪴</span>Potting<span class="nbadge" id="badge-pot"></span></button>
+  <button class="nb" onclick="nav('inv')" id="nb-inv"><span class="ni">🌿</span>Inventory</button>
+  <button class="nb" onclick="nav('jobs')" id="nb-jobs"><span class="ni">📋</span>Jobs</button>
+  <button class="nb" onclick="nav('care')" id="nb-care"><span class="ni">💧</span>Care</button>
+  <button class="nb" onclick="nav('docs')" id="nb-docs"><span class="ni">📄</span>Docs</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<!-- ════ DASHBOARD ════ -->
+<div id="sc-dash" class="screen active content">
+  <div class="stag">Season Overview</div>
+  <div class="sg" id="dash-stats"></div>
+  <div id="dash-flags"></div>
+  <div id="dash-alerts"></div>
+  <div class="stag">Quick Actions</div>
+  <div class="card"><div class="cb">
+    <div class="brow">
+      <button class="btn bg" onclick="openM('m-invoice')">📄 Scan Invoice</button>
+      <button class="btn bg" onclick="nav('pot')">🪴 Potting Queue</button>
+      <button class="btn bg" onclick="openM('m-addjob')">+ New Job</button>
+      <button class="btn bo" onclick="openM('m-scan')">📷 Photo Count</button>
+      <button class="btn bo" onclick="openM('m-addstock')">+ Add Stock</button>
+      <button class="btn bo" onclick="openM('m-addplant')">+ New Plant Species</button>
+    </div>
+  </div></div>
+  <div class="stag">Active Jobs</div>
+  <div id="dash-jobs"></div>
+</div>
+
+<!-- ════ POTTING QUEUE ════ -->
+<div id="sc-pot" class="screen content" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div class="stag" style="margin:0">Potting Queue</div>
+    <button class="btn bg bsm" onclick="openM('m-invoice')">📄 Scan Invoice</button>
+  </div>
+  <div class="al alg"><span class="ali">🪴</span><div>Plants received and heeled in. Tap any species to log pot-up — enter qty potted and assign nursery location. Partial potting OK, remainder stays in queue.</div></div>
+  <div id="pot-queue-wrap"></div>
+</div>
+
+<!-- ════ INVENTORY ════ -->
+<div id="sc-inv" class="screen content" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div class="stag" style="margin:0">Plant Inventory</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn bo bsm" onclick="printInventory()">🖨 Print</button>
+      <button class="btn bo bsm" onclick="openSizeEntry()">📏 Monthly Sizes</button>
+      <button class="btn bo bsm" onclick="openM('m-scan')">📷 Photo Count</button>
+      <button class="btn bg bsm" onclick="openM('m-addstock')">+ Add Stock</button>
+    </div>
+  </div>
+  <div class="card"><div class="cb" style="padding:10px">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <select id="inv-loc" onchange="buildInv()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option value="">All Locations</option>
+        <option value="office">Office Nursery</option>
+        <option value="pump">Pump House</option>
+        <option value="bt">BT Landholdings</option>
+        <option value="vendor">Vendor / Incoming</option>
+      </select>
+      <select id="inv-type" onchange="buildInv()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option value="">All Types</option>
+        <option value="tree">Trees</option><option value="shrub">Shrubs</option>
+        <option value="grass">Grasses/Sedges/Rushes</option><option value="fern">Ferns</option><option value="vine">Vines</option>
+      </select>
+      <select id="inv-cont" onchange="buildInv()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option value="">All Sizes</option>
+        <option value="plug">Plug/CI</option><option value="4in">4"</option>
+        <option value="#1">#1</option><option value="#2">#2</option><option value="#3">#3</option><option value="#5">#5</option>
+      </select>
+    </div>
+  </div></div>
+  <div id="inv-wrap"></div>
+</div>
+
+<!-- ════ JOBS ════ -->
+<div id="sc-jobs" class="screen content" style="display:none">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div class="stag" style="margin:0">Jobs &amp; Contracts</div>
+    <button class="btn bg bsm" onclick="openM('m-addjob')">+ Add Job</button>
+  </div>
+  <div id="jobs-list"></div>
+</div>
+
+<!-- ════ CARE ════ -->
+<div id="sc-care" class="screen content" style="display:none">
+  <div class="stag">Fertilization Schedule</div>
+  <div class="al alb"><span class="ali">ℹ️</span><div><b>Rates:</b> Plug/4" = ½ tsp · #1 = 1 tsp · #2 = 2 tsp · #3/#5 = 1 tbsp &nbsp;|&nbsp; <b>Aug 15 cutoff</b> · Stop fert to harden off before outplant</div></div>
+  <div class="card">
+    <div class="ch"><div class="chl"><div class="cstep">F</div>
+      <div><div class="ctitle">Monthly Fertilization</div><div class="csub">Tap ✅ to log roots good · ⚠️ needs attention · 🚩 hold</div></div>
+    </div>
+    <select id="fert-mo" onchange="buildFert()" style="font-size:12px;padding:5px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+      <option value="3">April</option><option value="4">May</option><option value="5">June</option>
+      <option value="6">July</option><option value="7">August ≤15</option><option value="8">Sept</option><option value="9">Oct</option>
+    </select></div>
+    <div class="cb" style="overflow-x:auto"><div id="fert-wrap"></div></div>
+  </div>
+  <div class="stag">Hardening Off — Stop Fert by Job</div>
+  <div class="card"><div class="ch"><div class="chl"><div class="cstep">H</div>
+    <div><div class="ctitle">Harden Off Tracker</div><div class="csub">Stop fertilizing · continue watering · slows growth before outplant</div></div>
+  </div></div>
+  <div class="cb" id="harden-wrap"></div></div>
+  <div class="stag">Weekly Weed Inspection Log</div>
+  <div class="card"><div class="ch"><div class="chl"><div class="cstep">W</div>
+    <div><div class="ctitle">Weed Inspection</div><div class="csub">Weekly · per location · species-level detail for problem areas</div></div>
+  </div>
+  <div style="display:flex;gap:6px">
+    <button class="btn bo bsm" onclick="printWeedSheet()">🖨 Print Sheet</button>
+    <button class="btn bg bsm" onclick="openWeedLog()">+ Log Inspection</button>
+  </div></div>
+  <div class="cb" id="weed-log-wrap">
+    <div style="color:var(--ink3);font-size:13px">No weed logs yet. Tap + Log Inspection to start.</div>
+  </div></div>
+</div>
+
+<!-- ════ SHIP ════ -->
+<div id="sc-ship" class="screen content" style="display:none">
+  <div class="stag">Sort, Inspect &amp; Ship</div>
+  <div class="al ala"><span class="ali">📸</span><div>At job site staging area: take 2 photos per species (close-up with readable tag + group shot). Upload here to confirm what was delivered. Inspectors can request these at any time.</div></div>
+  <div id="ship-wrap"></div>
+</div>
+
+<!-- ════ DOCS ════ -->
+<div id="sc-docs" class="screen content" style="display:none">
+  <div class="stag">Documents — PO · BOL · RFQ</div>
+  <div id="docs-wrap"></div>
+</div>
+
+<!-- ══════════════════════ MODALS ══════════════════════ -->
+
+<!-- INVOICE SCANNER -->
+<div class="mbg" id="m-invoice">
+  <div class="modal" style="max-width:660px">
+    <div class="mh"><div class="mt">📄 Scan Vendor Invoice</div><button class="mc" onclick="closeM('m-invoice')">×</button></div>
+    <div class="mb">
+      <div class="al alb"><span class="ali">ℹ️</span><div>Upload a photo or PDF of a vendor invoice. Claude will read the species, quantities, and prices — confirm before adding to the Potting Queue.</div></div>
+      <div class="fr fc2">
+        <div class="f"><label>Vendor Name</label><input type="text" id="inv-vendor" placeholder="e.g. Scholls Valley Native Nursery"></div>
+        <div class="f"><label>Invoice #</label><input type="text" id="inv-invnum" placeholder="e.g. SO-26094"></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Invoice Date</label><input type="date" id="inv-invdate"></div>
+        <div class="f"><label>Pre-Allocated Job</label>
+          <select id="inv-job"><option value="">— General stock —</option></select>
+        </div>
+      </div>
+      <div class="scan-preview" id="inv-drop" onclick="document.getElementById('inv-file').click()" style="margin-bottom:10px">
+        <div id="inv-preview-content">
+          <div style="font-size:32px;margin-bottom:8px">📷</div>
+          <div style="font-weight:600;color:var(--ink2)">Tap to upload invoice photo or PDF</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">Photo, scan, or PDF of vendor invoice</div>
+        </div>
+      </div>
+      <input type="file" id="inv-file" accept="image/*,application/pdf" style="display:none" onchange="handleInvoiceUpload(event)">
+      <div id="inv-reading" style="display:none"><div class="al alb"><span class="ali">⏳</span><div>Reading invoice...</div></div></div>
+      <div id="inv-results" style="display:none"></div>
+      <div id="inv-actions" style="display:none" class="brow">
+        <button class="btn bg" onclick="confirmInvoiceResults()">✅ Add to Potting Queue</button>
+        <button class="btn bo" onclick="resetInvoiceScan()">↩ Re-scan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POT-UP ENTRY -->
+<div class="mbg" id="m-potup">
+  <div class="modal">
+    <div class="mh"><div class="mt" id="potup-title">🪴 Log Pot-Up</div><button class="mc" onclick="closeM('m-potup')">×</button></div>
+    <div class="mb" id="potup-body"></div>
+  </div>
+</div>
+
+
+
+<!-- PHOTO SCAN -->
+<div class="mbg" id="m-scan">
+  <div class="modal">
+    <div class="mh"><div class="mt">📷 Photo Inventory Count</div><button class="mc" onclick="closeM('m-scan')">×</button></div>
+    <div class="mb">
+      <div class="al alb"><span class="ali">ℹ️</span><div>Upload a photo of your handwritten count sheet. Claude will read it and show you the results to confirm before saving.</div></div>
+      <div class="f" style="margin-bottom:10px">
+        <label>Nursery Location</label>
+        <select id="scan-loc">
+          <option value="office">Office Nursery</option>
+          <option value="pump">Pump House</option>
+          <option value="bt">BT Landholdings</option>
+        </select>
+      </div>
+      <div class="scan-preview" id="scan-drop" onclick="document.getElementById('scan-file').click()">
+        <div id="scan-preview-content">
+          <div style="font-size:32px;margin-bottom:8px">📸</div>
+          <div style="font-weight:600;color:var(--ink2)">Tap to upload photo</div>
+          <div style="font-size:11px;color:var(--ink3);margin-top:4px">Count sheet, handwritten list, or spreadsheet printout</div>
+        </div>
+      </div>
+      <input type="file" id="scan-file" accept="image/*" style="display:none" onchange="handleScanUpload(event)">
+      <div id="scan-reading" style="display:none">
+        <div class="al alb"><span class="ali">⏳</span><div>Reading your count sheet... this takes about 15 seconds.</div></div>
+      </div>
+      <div id="scan-results" style="display:none"></div>
+      <div id="scan-actions" style="display:none" class="brow">
+        <button class="btn bg" onclick="confirmScanResults()">✅ Confirm &amp; Save All</button>
+        <button class="btn bo" onclick="document.getElementById('scan-results').innerHTML='';document.getElementById('scan-actions').style.display='none';document.getElementById('scan-results').style.display='none'">↩ Re-scan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD STOCK -->
+<div class="mbg" id="m-addstock">
+  <div class="modal">
+    <div class="mh"><div class="mt">Add Stock to Inventory</div><button class="mc" onclick="closeM('m-addstock')">×</button></div>
+    <div class="mb">
+      <div class="al alg" style="margin-bottom:10px"><span class="ali">📏</span><div>Stage plants in <b>rows of 10</b>. Count and enter height after pruning or transplanting.</div></div>
+      <div class="search-wrap"><input type="text" id="as-search" placeholder="Search species..." oninput="filterAddStock(this.value)"></div>
+      <div id="as-dup-warn"></div>
+      <div class="f" style="margin-bottom:10px">
+        <label>Species</label>
+        <select id="as-sp" onchange="checkDuplicate();updateHeightOpts()">
+          <option value="">— Select species —</option>
+        </select>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Container Size</label>
+          <select id="as-cont">
+            <option value="plug">Plug / CI</option><option value="4in">4" / 4-cube</option>
+            <option value="#1">#1 gal</option><option value="#2">#2 gal</option>
+            <option value="#3">#3 gal</option><option value="#5">#5 gal</option>
+            <option value="#7">#7 gal</option><option value="bare root">Bare Root</option>
+            <option value="live stake">Live Stake</option>
+          </select>
+        </div>
+        <div class="f"><label>Quantity</label><input type="number" id="as-qty" min="0" placeholder="0" style="font-size:18px;font-weight:600;text-align:center"></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Nursery Location</label>
+          <select id="as-loc">
+            <option value="office">Office Nursery</option>
+            <option value="pump">Pump House</option>
+            <option value="bt">BT Landholdings</option>
+          </select>
+        </div>
+        <div class="f"><label>Origin</label>
+          <select id="as-origin">
+            <option value="grown">Grown by BT</option>
+            <option value="bare_root_purchase">Bare Root Purchase</option>
+            <option value="vendor">Purchased from Vendor</option>
+            <option value="carryover">Carryover / Leftover</option>
+            <option value="job_return">Job Return</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Date</label><input type="date" id="as-date" onchange="autoSetSeason()"></div>
+        <div class="f"><label>Season <span style="font-size:9px;color:var(--ink3)">(auto-detected, override OK)</span></label>
+          <select id="as-season">
+            <option value="">— Auto from date —</option>
+            <option>Spring 2024</option><option>Summer 2024</option><option>Fall 2024</option><option>Winter 2024</option>
+            <option>Spring 2025</option><option>Summer 2025</option><option>Fall 2025</option><option>Winter 2025</option>
+            <option selected>Spring 2026</option><option>Summer 2026</option><option>Fall 2026</option><option>Winter 2026</option>
+            <option>Spring 2027</option><option>Summer 2027</option><option>Fall 2027</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Avg Height After Transplant / Pruning</label>
+          <select id="as-ht">
+            <option value="">— Select height —</option>
+          </select>
+        </div>
+        <div class="f"><label>Job Pre-Allocation (optional)</label>
+          <select id="as-job"><option value="">— Not pre-allocated —</option></select>
+        </div>
+      </div>
+      <div class="f" style="margin-bottom:12px"><label>Notes / PO / Invoice #</label><input type="text" id="as-notes" placeholder="Vendor invoice, PO #, lot #..."></div>
+      <div class="brow">
+        <button class="btn bg" onclick="saveStock()">💾 Save</button>
+        <button class="btn bo" onclick="closeM('m-addstock')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RECEIVE STOCK FROM VENDOR -->
+<div class="mbg" id="m-receive">
+  <div class="modal">
+    <div class="mh"><div class="mt">📥 Receive Stock from Vendor</div><button class="mc" onclick="closeM('m-receive')">×</button></div>
+    <div class="mb">
+      <div class="al alg"><span class="ali">ℹ️</span><div>Vendor's invoice is the BOL. Log what arrived, which nursery it goes to, and if it's pre-allocated to a job.</div></div>
+      <div class="fr fc2">
+        <div class="f"><label>Vendor Name</label><input type="text" id="rv-vendor" placeholder="e.g. Beaverlake Nursery"></div>
+        <div class="f"><label>Their Invoice #</label><input type="text" id="rv-inv" placeholder="e.g. 38444-b"></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Date Received</label><input type="date" id="rv-date"></div>
+        <div class="f"><label>Deliver to Nursery</label>
+          <select id="rv-loc">
+            <option value="office">Office Nursery</option>
+            <option value="pump">Pump House</option>
+            <option value="bt">BT Landholdings</option>
+          </select>
+        </div>
+      </div>
+      <div class="f" style="margin-bottom:10px">
+        <label>Pre-Allocated to Job (if known)</label>
+        <select id="rv-job"><option value="">— Not pre-allocated —</option></select>
+      </div>
+      <div style="font-weight:600;font-size:12px;margin-bottom:8px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;color:var(--ink3)">Plants Received</div>
+      <div id="rv-rows"></div>
+      <button class="btn bo bsm" onclick="addReceiveRow()" style="margin-bottom:10px">+ Add Species</button>
+      <div class="brow">
+        <button class="btn bg" onclick="saveReceiving()">💾 Save Receipt</button>
+        <button class="btn bo" onclick="closeM('m-receive')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD NEW PLANT SPECIES -->
+<div class="mbg" id="m-addplant">
+  <div class="modal">
+    <div class="mh"><div class="mt">Add New Plant Species</div><button class="mc" onclick="closeM('m-addplant')">×</button></div>
+    <div class="mb">
+      <div class="al alb"><span class="ali">🔍</span><div>The system will check for duplicates as you type — including abbreviations like "OR Grape" = "Oregon Grape", size variations like "4 inch" = "4\"", and common misspellings.</div></div>
+      <div id="ap-dup-warn"></div>
+      <div class="fr fc2">
+        <div class="f"><label>Common Name</label><input type="text" id="ap-common" placeholder="e.g. Red Twig Dogwood" oninput="checkNewPlantDup()"></div>
+        <div class="f"><label>Scientific Name</label><input type="text" id="ap-sci" placeholder="e.g. Cornus sericea" oninput="checkNewPlantDup()" style="font-style:italic"></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Plant Type</label>
+          <select id="ap-type">
+            <option value="tree">Tree</option><option value="shrub">Shrub</option>
+            <option value="grass">Grass / Sedge / Rush</option><option value="fern">Fern</option>
+            <option value="vine">Vine</option><option value="groundcover">Groundcover</option>
+          </select>
+        </div>
+        <div class="f"><label>Native Status</label>
+          <select id="ap-native">
+            <option value="pnw">PNW Native ✅</option>
+            <option value="non-native">Non-native</option>
+            <option value="unknown">Unknown</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Default Container</label>
+          <select id="ap-cont">
+            <option value="plug">Plug</option><option value="4in">4"</option>
+            <option value="#1">#1</option><option value="#2">#2</option>
+            <option value="#3">#3</option><option value="#5">#5</option>
+          </select>
+        </div>
+        <div class="f"><label>Notes</label><input type="text" id="ap-notes" placeholder="Habitat, special requirements..."></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Water Requirement</label>
+          <select id="ap-water">
+            <option value="1">💧 Dry / Xeric (1 drop)</option>
+            <option value="2" selected>💧💧 Moderate (2 drops)</option>
+            <option value="3">💧💧💧 Moist (3 drops)</option>
+            <option value="4">💧💧💧💧 Wet / Emergent (4 drops)</option>
+          </select>
+        </div>
+        <div class="f"><label>Sun Requirement</label>
+          <select id="ap-sun">
+            <option value="full">☀️ Full Sun</option>
+            <option value="part" selected>🌓 Part Shade</option>
+            <option value="shade">🌑 Shade</option>
+          </select>
+        </div>
+      </div>
+      <div class="brow">
+        <button class="btn bg" onclick="savePlantSpecies()">💾 Add to Master List</button>
+        <button class="btn bo" onclick="closeM('m-addplant')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD JOB -->
+<div class="mbg" id="m-addjob">
+  <div class="modal" style="max-width:700px">
+    <div class="mh"><div class="mt">Add New Job / Contract</div><button class="mc" onclick="closeM('m-addjob')">×</button></div>
+    <div class="mb">
+      <div class="fr fc2">
+        <div class="f"><label>Job Name / Contract #</label><input type="text" id="j-name"></div>
+        <div class="f"><label>Client / Agency</label><input type="text" id="j-client"></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Flag Color</label><input type="color" id="j-color" value="#84C441" style="height:38px;padding:2px 4px;cursor:pointer"></div>
+        <div class="f"><label>Flag Color Name</label><input type="text" id="j-colorname" placeholder="e.g. Lime Green"></div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Outplant Target Date</label><input type="date" id="j-date"></div>
+        <div class="f"><label>Planting Window</label>
+          <select id="j-window">
+            <option value="wet">Oct 1 – Feb 28 (Non-irrigated natives)</option>
+            <option value="any">Any season (Irrigated site)</option>
+          </select>
+        </div>
+      </div>
+      <div class="fr fc2">
+        <div class="f"><label>Location / Site</label><input type="text" id="j-loc"></div>
+        <div class="f"><label>Destination State</label>
+          <select id="j-state" onchange="checkORFlag()">
+            <option value="WA">Washington</option>
+            <option value="OR">Oregon ⚠️ Inspection req'd</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div id="j-or-flag" style="display:none" class="flag-or">
+        <div style="font-weight:700;color:var(--amber2);margin-bottom:4px">⚠️ Oregon Shipment — WSDA Inspection Required</div>
+        <div style="font-size:12px;color:var(--amber)">App will flag 3 weeks before outplant date. Contact: Sara Welch · swelch@agr.wa.gov · ~2 week lead time. WSDA permit stamp must be on BOL before shipment.</div>
+      </div>
+      <div class="f" style="margin-bottom:10px"><label>Notes / Contract Requirements</label><textarea id="j-notes"></textarea></div>
+      <div class="div"></div>
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Species Targets</div>
+      <div class="search-wrap"><input type="text" id="j-sp-search" placeholder="Search species to add..." oninput="filterJobSp(this.value)"></div>
+      <div id="j-sp-rows" style="max-height:300px;overflow-y:auto;border:1px solid var(--border2);border-radius:var(--r6)"></div>
+      <div class="brow">
+        <button class="btn bg" onclick="saveJob()">💾 Save Job</button>
+        <button class="btn bo" onclick="closeM('m-addjob')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JOB DETAIL -->
+<div class="mbg" id="m-jobdetail">
+  <div class="modal" style="max-width:760px">
+    <div class="mh"><div class="mt" id="jd-title">Job Detail</div><button class="mc" onclick="closeM('m-jobdetail')">×</button></div>
+    <div class="mb" id="jd-body"></div>
+  </div>
+</div>
+
+<!-- UPSIZE PROMPT -->
+<div class="mbg" id="m-upsize">
+  <div class="modal">
+    <div class="mh"><div class="mt">⬆️ Pipeline / Upsize Decision</div><button class="mc" onclick="closeM('m-upsize')">×</button></div>
+    <div class="mb" id="upsize-body"></div>
+  </div>
+</div>
+
+<!-- INSPECTION PHOTOS -->
+<div class="mbg" id="m-inspect">
+  <div class="modal">
+    <div class="mh"><div class="mt">📸 Site Inspection Photos</div><button class="mc" onclick="closeM('m-inspect')">×</button></div>
+    <div class="mb" id="inspect-body"></div>
+  </div>
+</div>
+
+<!-- REJECT PLANTS -->
+<div class="mbg" id="m-reject">
+  <div class="modal">
+    <div class="mh"><div class="mt">🚫 Handle Rejected Plants</div><button class="mc" onclick="closeM('m-reject')">×</button></div>
+    <div class="mb" id="reject-body"></div>
+  </div>
+</div>
+
+<script>
+// ══════════ SPECIES MASTER ══════════
+// water: 1=dry, 2=moderate, 3=moist, 4=wet/emergent
+// sun: 'shade','part','full'
+// Sources: USDA Plant Guides, Sound Native Plants, OSU Extension, King County Native Plant Guide, Portland Nursery
+const DEFAULT_SPECIES=[
+{id:'bigleaf_maple',common:'Big Leaf Maple',sci:'Acer macrophyllum',type:'tree',native:'pnw',sizes:['plug','#1','#2','#3'],water:2,sun:'part'},
+{id:'vine_maple',common:'Vine Maple',sci:'Acer circinatum',type:'tree',native:'pnw',sizes:['plug','#1','#2','#3'],water:2,sun:'part'},
+{id:'red_alder',common:'Red Alder',sci:'Alnus rubra',type:'tree',native:'pnw',sizes:['plug','#1','#2'],water:3,sun:'full'},
+{id:'serviceberry',common:'Serviceberry',sci:'Amelanchier alnifolia',type:'tree',native:'pnw',sizes:['bare root','#1','#2','#3'],water:2,sun:'full'},
+{id:'paper_birch',common:'Paper Birch',sci:'Betula papyrifera',type:'tree',native:'pnw',sizes:['#1','#2'],water:2,sun:'full'},
+{id:'cascara',common:'Cascara',sci:'Frangula purshiana',type:'tree',native:'pnw',sizes:['plug','#1','#2','#3'],water:2,sun:'part'},
+{id:'oregon_ash',common:'Oregon Ash',sci:'Fraxinus latifolia',type:'tree',native:'pnw',sizes:['plug','#1','#2'],water:3,sun:'full'},
+{id:'black_hawthorn',common:'Black Douglas Hawthorn',sci:'Crataegus douglasii',type:'tree',native:'pnw',sizes:['bare root','#1','#2','#3'],water:2,sun:'full'},
+{id:'black_cottonwood',common:'Black Cottonwood',sci:'Populus balsamifera',type:'tree',native:'pnw',sizes:['plug','#1','#2'],water:3,sun:'full'},
+{id:'bitter_cherry',common:'Bitter Cherry',sci:'Prunus emarginata',type:'tree',native:'pnw',sizes:['#1','#2'],water:2,sun:'full'},
+{id:'oregon_white_oak',common:'Oregon White Oak',sci:'Quercus garryana',type:'tree',native:'pnw',sizes:['#1','#2'],water:1,sun:'full'},
+{id:'pacific_dogwood',common:'Pacific Dogwood',sci:'Cornus nuttallii',type:'tree',native:'pnw',sizes:['#1','#2'],water:2,sun:'part'},
+{id:'western_crabapple',common:'Western Crabapple',sci:'Malus fusca',type:'tree',native:'pnw',sizes:['bare root','#1','#2'],water:3,sun:'part'},
+{id:'grand_fir',common:'Grand Fir',sci:'Abies grandis',type:'tree',native:'pnw',sizes:['plug','#1','#2'],water:2,sun:'part'},
+{id:'douglas_fir',common:'Douglas Fir',sci:'Pseudotsuga menziesii',type:'tree',native:'pnw',sizes:['plug','#1','#2','#3'],water:2,sun:'part'},
+{id:'sitka_spruce',common:'Sitka Spruce',sci:'Picea sitchensis',type:'tree',native:'pnw',sizes:['plug','#1','#2'],water:3,sun:'part'},
+{id:'shore_pine',common:'Shore Pine',sci:'Pinus contorta var. contorta',type:'tree',native:'pnw',sizes:['#1','#2'],water:2,sun:'full'},
+{id:'ponderosa_pine',common:'Ponderosa Pine',sci:'Pinus ponderosa',type:'tree',native:'pnw',sizes:['#1','#2','#5'],water:1,sun:'full'},
+{id:'western_hemlock',common:'Western Hemlock',sci:'Tsuga heterophylla',type:'tree',native:'pnw',sizes:['plug','#1','#2','#3'],water:3,sun:'part'},
+{id:'western_red_cedar',common:'Western Red Cedar',sci:'Thuja plicata',type:'tree',native:'pnw',sizes:['plug','#1','#2','#3'],water:3,sun:'part'},
+{id:'pacific_willow',common:'Pacific Willow',sci:'Salix lucida',type:'tree',native:'pnw',sizes:['plug','live stake','#1','#2'],water:4,sun:'full'},
+{id:'scouler_willow',common:"Scouler's Willow",sci:'Salix scouleriana',type:'tree',native:'pnw',sizes:['plug','live stake','#1','#2'],water:3,sun:'full'},
+{id:'sitka_willow',common:'Sitka Willow',sci:'Salix sitchensis',type:'tree',native:'pnw',sizes:['plug','live stake','#1','#2'],water:4,sun:'full'},
+{id:'red_twig_dogwood',common:'Red Twig Dogwood',sci:'Cornus sericea',type:'shrub',native:'pnw',sizes:['4in','bare root','#1','#2','#3'],water:3,sun:'part'},
+{id:'kelsey_dogwood',common:"Kelsey's Dwarf Red-Osier Dogwood",sci:"Cornus sericea 'Kelseyi'",type:'shrub',native:'pnw',sizes:['4in','#1','#2'],water:3,sun:'part'},
+{id:'red_elderberry',common:'Red Elderberry',sci:'Sambucus racemosa',type:'shrub',native:'pnw',sizes:['plug','#1','#2'],water:2,sun:'part'},
+{id:'blue_elderberry',common:'Blue Elderberry',sci:'Sambucus cerulea',type:'shrub',native:'pnw',sizes:['#1','#2'],water:2,sun:'full'},
+{id:'twinberry',common:'Black Twinberry',sci:'Lonicera involucrata',type:'shrub',native:'pnw',sizes:['plug','#1','#2','#3'],water:3,sun:'part'},
+{id:'oregon_grape',common:'Oregon Grape',sci:'Mahonia aquifolium',type:'shrub',native:'pnw',sizes:['#1','#2','#3'],water:2,sun:'part'},
+{id:'oregon_grape_comp',common:'Oregon Grape Compacta',sci:'Mahonia aquifolium compacta',type:'shrub',native:'pnw',sizes:['#2','#3','#5'],water:2,sun:'part'},
+{id:'longleaf_grape',common:'Longleaf Oregon Grape',sci:'Mahonia nervosa',type:'shrub',native:'pnw',sizes:['#1'],water:2,sun:'shade'},
+{id:'creeping_grape',common:'Creeping Oregon Grape',sci:'Mahonia repens',type:'shrub',native:'pnw',sizes:['#1','#2','#3'],water:2,sun:'shade'},
+{id:'oceanspray',common:'Oceanspray',sci:'Holodiscus discolor',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2','#3'],water:2,sun:'full'},
+{id:'mock_orange',common:'Mock Orange',sci:'Philadelphus lewisii',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2','#3'],water:2,sun:'part'},
+{id:'pacific_ninebark',common:'Pacific Ninebark',sci:'Physocarpus capitatus',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2','#3','#5'],water:3,sun:'part'},
+{id:'nootka_rose',common:'Nootka Rose',sci:'Rosa nutkana',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2','#3'],water:2,sun:'full'},
+{id:'baldhip_rose',common:'Baldhip Rose',sci:'Rosa gymnocarpa',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#3'],water:2,sun:'part'},
+{id:'cluster_rose',common:'Cluster Rose',sci:'Rosa pisocarpa',type:'shrub',native:'pnw',sizes:['plug','bare root','#1'],water:3,sun:'part'},
+{id:'woods_rose',common:"Wood's Rose",sci:'Rosa woodsii',type:'shrub',native:'pnw',sizes:['bare root','#1','#2'],water:2,sun:'full'},
+{id:'snowberry',common:'Snowberry',sci:'Symphoricarpos albus',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2','#3'],water:2,sun:'part'},
+{id:'flowering_currant',common:'Red Flowering Currant',sci:'Ribes sanguineum',type:'shrub',native:'pnw',sizes:['bare root','#1','#2','#3'],water:2,sun:'part'},
+{id:'gooseberry',common:'Gooseberry',sci:'Ribes divaricatum',type:'shrub',native:'pnw',sizes:['plug','#1'],water:3,sun:'part'},
+{id:'stink_currant',common:'Stink Currant',sci:'Ribes bracteosum',type:'shrub',native:'pnw',sizes:['#1'],water:3,sun:'part'},
+{id:'salmonberry',common:'Salmonberry',sci:'Rubus spectabilis',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2'],water:3,sun:'part'},
+{id:'thimbleberry',common:'Thimbleberry',sci:'Rubus parviflorus',type:'shrub',native:'pnw',sizes:['plug','bare root','#1','#2','#3'],water:2,sun:'part'},
+{id:'osoberry',common:'Osoberry / Indian Plum',sci:'Oemleria cerasiformis',type:'shrub',native:'pnw',sizes:['bare root','#1','#2'],water:2,sun:'part'},
+{id:'beaked_hazelnut',common:'Beaked Hazelnut',sci:'Corylus cornuta',type:'shrub',native:'pnw',sizes:['bare root','#1','#2'],water:2,sun:'part'},
+{id:'douglas_spirea',common:'Douglas Spirea',sci:'Spiraea douglasii',type:'shrub',native:'pnw',sizes:['bare root','#1','#2','#3'],water:3,sun:'full'},
+{id:'birchleaf_spirea',common:'Birchleaf Spirea',sci:'Spiraea betulifolia',type:'shrub',native:'pnw',sizes:['#1','#3'],water:2,sun:'full'},
+{id:'evergreen_huck',common:'Evergreen Huckleberry',sci:'Vaccinium ovatum',type:'shrub',native:'pnw',sizes:['4in','#1','#2','#3'],water:2,sun:'part'},
+{id:'red_huckleberry',common:'Red Huckleberry',sci:'Vaccinium parvifolium',type:'shrub',native:'pnw',sizes:['#1'],water:2,sun:'shade'},
+{id:'kinnikinnick',common:'Kinnikinnick',sci:'Arctostaphylos uva-ursi',type:'shrub',native:'pnw',sizes:['4in','#1','#2'],water:1,sun:'full'},
+{id:'salal',common:'Salal',sci:'Gaultheria shallon',type:'shrub',native:'pnw',sizes:['4in','bare root','#1','#2','#3'],water:2,sun:'shade'},
+{id:'pacific_wax_myrtle',common:'Pacific Wax Myrtle',sci:'Myrica californica',type:'shrub',native:'pnw',sizes:['#1','#2','#3','#5'],water:2,sun:'part'},
+{id:'western_hazelnut',common:'Western Hazelnut',sci:'Corylus cornuta var. californica',type:'shrub',native:'pnw',sizes:['bare root','#1','#2'],water:2,sun:'part'},
+{id:'pacific_yew',common:'Pacific Yew',sci:'Taxus brevifolia',type:'shrub',native:'pnw',sizes:['#1'],water:2,sun:'shade'},
+{id:'fireweed',common:'Fireweed',sci:'Chamaenerion angustifolium',type:'shrub',native:'pnw',sizes:['#1'],water:2,sun:'full'},
+{id:'creeping_bramble',common:'Creeping Bramble',sci:'Rubus calycinoides',type:'shrub',native:'pnw',sizes:['#1'],water:2,sun:'part'},
+{id:'boston_ivy',common:'Boston Ivy',sci:'Parthenocissus tricuspidata',type:'vine',native:'non-native',sizes:['#1'],water:2,sun:'part'},
+{id:'tufted_hairgrass',common:'Tufted Hairgrass',sci:'Deschampsia cespitosa',type:'grass',native:'pnw',sizes:['plug','4in','#1'],water:3,sun:'full'},
+{id:'slough_sedge',common:'Slough Sedge',sci:'Carex obnupta',type:'grass',native:'pnw',sizes:['plug','4in','#1'],water:4,sun:'part'},
+{id:'orange_sedge',common:'Orange Sedge',sci:'Carex testacea',type:'grass',native:'non-native',sizes:['#1'],water:2,sun:'full'},
+{id:'soft_rush',common:'Soft Rush',sci:'Juncus effusus',type:'grass',native:'pnw',sizes:['plug','4in','#1'],water:4,sun:'full'},
+{id:'spreading_rush',common:'Spreading Rush',sci:'Juncus patens',type:'grass',native:'pnw',sizes:['plug','4in','#1','#2'],water:3,sun:'full'},
+{id:'slender_rush',common:'Slender Rush',sci:'Juncus tenuis',type:'grass',native:'pnw',sizes:['4in','#1'],water:3,sun:'full'},
+{id:'hardstem_bulrush',common:'Hardstem Bulrush',sci:'Scirpus acutus',type:'grass',native:'pnw',sizes:['plug','#1'],water:4,sun:'full'},
+{id:'smallfruit_bulrush',common:'Small-Fruited Bulrush',sci:'Scirpus microcarpus',type:'grass',native:'pnw',sizes:['plug','#1'],water:4,sun:'full'},
+{id:'lyngby_sedge',common:'Lyngby Sedge',sci:'Carex lyngbyei',type:'grass',native:'pnw',sizes:['plug','4in'],water:4,sun:'full'},
+{id:'sword_fern',common:'Sword Fern',sci:'Polystichum munitum',type:'fern',native:'pnw',sizes:['4in','#1','#2','#3'],water:2,sun:'shade'},
+{id:'lady_fern',common:'Lady Fern',sci:'Athyrium filix-femina',type:'fern',native:'pnw',sizes:['plug','#1'],water:3,sun:'part'},
+{id:'deer_fern',common:'Deer Fern',sci:'Blechnum spicant',type:'fern',native:'pnw',sizes:['#1'],water:3,sun:'shade'},
+{id:'fountain_grass',common:'Fountain Grass (Hameln)',sci:"Pennisetum alopecuroides 'Hameln'",type:'grass',native:'non-native',sizes:['4in','#1'],water:2,sun:'full'},
+{id:'blue_fescue',common:'Blue Fescue',sci:"Festuca glauca 'Elijah Blue'",type:'grass',native:'non-native',sizes:['4in','#1'],water:1,sun:'full'},
+];
+
+// ══════════ FUZZY MATCH UTILS ══════════
+const ABBREVS={'or grape':'oregon grape','or. grape':'oregon grape','ore grape':'oregon grape','wrc':'western red cedar','rtd':'red twig dogwood','rtwd':'red twig dogwood','dfw':'douglas fir','df':'douglas fir','ows':'oregon white oak','sberry':'snowberry','sb':'snowberry','oceanspry':'oceanspray','kinnikinnick':'kinnikinnick','kinnikinik':'kinnikinnick','kinnikinick':'kinnikinnick','kinnick':'kinnikinnick','mock or':'mock orange','mockrange':'mock orange','ninebark':'pacific ninebark','ninebrk':'pacific ninebark','cl rose':'cluster rose','clr':'cluster rose','nootka':'nootka rose','sitka spr':'sitka spruce','s spruce':'sitka spruce','red elder':'red elderberry','bl elder':'blue elderberry','salmonbry':'salmonberry','thimblbry':'thimbleberry','twig dog':'red twig dogwood'};
+const SIZE_ALIASES={'4 inch':'4in','4inch':'4in','4"':'4in','four inch':'4in','4 in':'4in','4-cube':'4in','4cube':'4in','4 cube':'4in','c4':'4in','1 gal':'#1','1gal':'#1','no 1':'#1','no. 1':'#1','1 gallon':'#1','gallon 1':'#1','2 gal':'#2','2gal':'#2','no 2':'#2','2 gallon':'#2','3 gal':'#3','3gal':'#3','5 gal':'#5','5gal':'#5','plug':'plug','ci':'plug','plugs':'plug','bare root':'bare root','br':'bare root','b&b':'bare root','live stake':'live stake','ls':'live stake'};
+
+function normalizeName(s){if(!s)return'';let n=s.toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();if(ABBREVS[n])return ABBREVS[n];return n;}
+function normalizeSize(s){if(!s)return'';const n=s.toLowerCase().replace(/[^a-z0-9"#\s]/g,' ').trim();return SIZE_ALIASES[n]||s;}
+function levenshtein(a,b){const m=a.length,n=b.length;const d=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1]);return d[m][n];}
+function fuzzyMatch(input,candidates){const norm=normalizeName(input);const matches=[];candidates.forEach(sp=>{const cn=normalizeName(sp.common);const sn=(sp.sci||'').toLowerCase();const dist=levenshtein(norm,cn);const sciDist=levenshtein(norm,sn.toLowerCase());const bestDist=Math.min(dist,sciDist);if(cn.includes(norm)||norm.includes(cn)||norm.includes(sn)||bestDist<=3)matches.push({sp,dist:bestDist,exact:cn===norm||sn.includes(norm)});});return matches.sort((a,b)=>a.dist-b.dist);}
+
+// ══════════ WATER / SUN DISPLAY ══════════
+// Sources: USDA, Sound Native Plants, OSU Extension, King County Native Plant Guide, Portland Nursery
+function waterIcons(n){
+  if(!n)return'';
+  const drop='💧';const labels={1:'Dry',2:'Moderate',3:'Moist',4:'Wet/Emergent'};
+  return`<span title="${labels[n]||''}">${drop.repeat(n)}</span>`;
+}
+function sunIcon(s){
+  const map={shade:'🌑',part:'🌓',full:'☀️'};
+  const lbl={shade:'Shade',part:'Part Shade',full:'Full Sun'};
+  return`<span title="${lbl[s]||s}">${map[s]||'—'}</span>`;
+}
+function waterSunBadge(sp){
+  if(!sp)return'';
+  const w=sp.water?waterIcons(sp.water):'';
+  const s=sp.sun?sunIcon(sp.sun):'';
+  if(!w&&!s)return'';
+  return`<span style="font-size:13px;white-space:nowrap">${w}${s?'&nbsp;'+s:''}</span>`;
+}
+
+// ══════════ GROWTH RATES ══════════
+const GROWTH_RATES={
+  red_twig_dogwood:{rate:'fast',time:'4–6 months',note:'Vigorous. 4" to #1 in one PNW summer. With monthly fert and warm above-ground pots, may be ready by Aug.'},
+  kelsey_dogwood:{rate:'fast',time:'4–6 months',note:'Same as standard red twig. 4" to #1 in one summer season.'},
+  snowberry:{rate:'fast',time:'4–6 months',note:'One of the fastest PNW natives. Bare root to #1 in one growing season.'},
+  salmonberry:{rate:'fast',time:'4–6 months',note:'Fast with moisture. Bare root to #1 in one summer.'},
+  thimbleberry:{rate:'fast',time:'5–6 months',note:'Plug/bare root to #1 in one growing season with monthly fert.'},
+  cluster_rose:{rate:'fast',time:'5–6 months',note:'Fast-rooting shrub rose. 4" to #1 in one season.'},
+  nootka_rose:{rate:'fast',time:'5–6 months',note:'Fast. Bare root to #1 in one summer.'},
+  red_elderberry:{rate:'fast',time:'4–5 months',note:'Very fast with moisture. Bare root to #1 in one season easily.'},
+  blue_elderberry:{rate:'fast',time:'4–5 months',note:'Fast grower. One season.'},
+  twinberry:{rate:'fast',time:'5–6 months',note:'Vigorous. Bare root to #1 in one season.'},
+  pacific_ninebark:{rate:'fast',time:'4–6 months',note:'Dense rapid grower. Bare root to #1 in one summer with monthly fert.'},
+  flowering_currant:{rate:'fast',time:'5–6 months',note:'Bare root arrives Jan, pots up, #1 by fall. Confirmed fast.'},
+  douglas_spirea:{rate:'fast',time:'5–6 months',note:'Fast-spreading shrub. One season from bare root.'},
+  oceanspray:{rate:'fast',time:'5–6 months',note:'One of the toughest fastest natives. Bare root to #1 in one summer season.'},
+  mock_orange:{rate:'fast',time:'5–6 months',note:'Philadelphus lewisii — vigorous. Bare root to #1 in one season.'},
+  tufted_hairgrass:{rate:'fast',time:'3–5 months',note:'Grasses establish very fast in warm above-ground pots. 4" to #1 in 3–5 months.'},
+  slough_sedge:{rate:'fast',time:'3–5 months',note:'Wetland sedge — fast root establishment. One season.'},
+  soft_rush:{rate:'fast',time:'3–5 months',note:'Fast container fill. One season.'},
+  spreading_rush:{rate:'fast',time:'3–5 months',note:'Fast. One season plug to #1.'},
+  slender_rush:{rate:'fast',time:'3–5 months',note:'Rush — fast in warm pots. One season.'},
+  hardstem_bulrush:{rate:'fast',time:'3–5 months',note:'Wetland bulrush — fast. One season.'},
+  fountain_grass:{rate:'fast',time:'3–5 months',note:'Pennisetum Hameln — warm season grass. Industry standard: pot 4" in early summer, finished #1 by fall.'},
+  fireweed:{rate:'fast',time:'3–5 months',note:'Herbaceous perennial — very fast. One season.'},
+  red_alder:{rate:'fast',time:'5–8 months',note:'One of the fastest PNW trees. Bare root to #1 in one season.'},
+  bigleaf_maple:{rate:'fast',time:'5–8 months',note:'Fast-growing maple. Bare root to #1 in one summer.'},
+  black_cottonwood:{rate:'fast',time:'4–6 months',note:'Extremely fast — fastest PNW tree. One season easily.'},
+  pacific_willow:{rate:'fast',time:'4–6 months',note:'Willows are among the fastest. One season.'},
+  scouler_willow:{rate:'fast',time:'4–6 months',note:'Fast willow. One season.'},
+  sitka_willow:{rate:'fast',time:'4–6 months',note:'Fast willow. One season.'},
+  serviceberry:{rate:'moderate',time:'8–12 months (bare root → #1 by fall)',note:'Moderate. Bare root purchased Jan, pots into #1 by fall — confirmed one-season cycle with monthly fert.'},
+  beaked_hazelnut:{rate:'moderate',time:'8–12 months',note:'Moderate. Bare root Jan, #1 by fall with good fert program.'},
+  western_hazelnut:{rate:'moderate',time:'8–12 months',note:'Same as beaked hazelnut. One season with monthly fert.'},
+  osoberry:{rate:'moderate',time:'8–12 months',note:'Moderate. Bare root to #1 in one season.'},
+  salal:{rate:'moderate',time:'10–14 months',note:'Moderate but steady. One to 1.5 seasons.'},
+  baldhip_rose:{rate:'moderate',time:'8–12 months',note:'Bare root Jan, #1 by fall is feasible with monthly fert.'},
+  woods_rose:{rate:'moderate',time:'8–12 months',note:'Moderate. One season with fert program.'},
+  birchleaf_spirea:{rate:'moderate',time:'10–14 months',note:'Moderate. One to 1.5 seasons.'},
+  red_huckleberry:{rate:'moderate',time:'12–18 months',note:'Vaccinium — slower to establish. 1.5 seasons minimum.'},
+  douglas_fir:{rate:'moderate',time:'8–12 months',note:'Plug/bare root to #1 in one season feasible with monthly fert and warm pots.'},
+  western_red_cedar:{rate:'moderate',time:'10–14 months',note:'Moderate conifer. One to 1.5 seasons with fert.'},
+  western_hemlock:{rate:'moderate',time:'10–14 months',note:'Moderate. One to 1.5 seasons.'},
+  sitka_spruce:{rate:'moderate',time:'10–14 months',note:'Moderate. One to 1.5 seasons.'},
+  grand_fir:{rate:'moderate',time:'10–14 months',note:'Moderate conifer. One to 1.5 seasons.'},
+  paper_birch:{rate:'moderate',time:'8–12 months',note:'Moderate to fast. One season feasible.'},
+  vine_maple:{rate:'moderate',time:'10–14 months',note:'Moderate. One to 1.5 seasons.'},
+  pacific_wax_myrtle:{rate:'moderate',time:'12–16 months',note:'Moderate. 1.5 seasons from plug to #1.'},
+  sword_fern:{rate:'moderate',time:'10–16 months',note:'Moderate fern. One to 1.5 seasons.'},
+  lady_fern:{rate:'fast',time:'5–8 months',note:'Faster fern. One season.'},
+  deer_fern:{rate:'moderate',time:'12–16 months',note:'Moderate. 1.5 seasons.'},
+  kinnikinnick:{rate:'fast',time:'3–5 months (4" pot → transplant ready)',note:'Purchased as 4" pot. With monthly fert and warm above-ground pots, ready to transplant within months during summer. Faster than published rates suggest.'},
+  evergreen_huck:{rate:'slow',time:'18–24 months',note:'Vaccinium ovatum — genuinely slow even with fert. 2 seasons minimum. Do not plan on one-season fill.'},
+  pacific_yew:{rate:'slow',time:'18–24 months',note:'Taxus — very slow. 2 seasons.'},
+  longleaf_grape:{rate:'slow',time:'18–24 months',note:'Mahonia nervosa — slow spreading. 2 seasons.'},
+  creeping_grape:{rate:'moderate',time:'12–16 months',note:'Mahonia repens — 1.5–2 seasons.'},
+  oregon_grape:{rate:'slow',time:'18–24 months',note:'Mahonia aquifolium — slow evergreen. 2 seasons from plug to #1.'},
+  oregon_grape_comp:{rate:'slow',time:'18–24 months',note:'Same slow rate as tall Oregon grape.'},
+  shore_pine:{rate:'slow',time:'18–24 months',note:'Pinus contorta — 2 seasons minimum.'},
+  ponderosa_pine:{rate:'slow',time:'18–24 months',note:'Slow conifer. 2 seasons.'},
+  oregon_white_oak:{rate:'very_slow',time:'24–48+ months',note:'⛔ VERY SLOW. Oregon White Oak grows 25 ft in 20 years. A 4" oak will NOT fill a #1 pot in one season. Expect 2–4 years. Do NOT count plug/4" as pipeline for any near-term job.'},
+};
+
+// ══════════ SIZE ORDER ══════════
+const SIZE_ORDER=['plug','4in','bare root','live stake','#1','#2','#3','#5','#7','#15'];
+function sizeRank(s){return SIZE_ORDER.indexOf(s);}
+function isSmaller(a,b){return sizeRank(a)<sizeRank(b)&&sizeRank(a)>=0;}
+
+// ══════════ STORAGE ══════════
+const SK={plants:'bt4_plants',jobs:'bt4_jobs',stock:'bt4_stock',logs:'bt4_logs',fertRes:'bt4_fr',fertDone:'bt4_fd',redFlags:'bt4_rf',inspPhotos:'bt4_ip',countHistory:'bt4_ch'};
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch{return null}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+function today(){return new Date().toISOString().split('T')[0]}
+
+let masterSpecies=(()=>{const saved=ld(SK.plants)||[];const ids=new Set(DEFAULT_SPECIES.map(s=>s.id));const custom=saved.filter(s=>!ids.has(s.id)&&s.custom);return[...DEFAULT_SPECIES,...custom];})();
+let jobs=ld(SK.jobs)||[];
+let stock=ld(SK.stock)||[];
+let logs=ld(SK.logs)||{weed:[],pe:[],irr:[]};
+let fertRes=ld(SK.fertRes)||{};
+let fertDone=ld(SK.fertDone)||{};
+let redFlags=ld(SK.redFlags)||{};
+let inspPhotos=ld(SK.inspPhotos)||{};
+let countHistory=ld(SK.countHistory)||[];
+
+function spById(id){return masterSpecies.find(s=>s.id===id)||{common:'Unknown',sci:'',type:'shrub',sizes:['#1'],id};}
+function invByLoc(spId,loc,cont){return stock.filter(e=>e.spId===spId&&(!loc||e.location===loc)&&(!cont||e.container===cont)).reduce((s,e)=>s+(parseInt(e.qty)||0),0);}
+function invTotal(spId,cont){return stock.filter(e=>e.spId===spId&&(!cont||e.container===cont)).reduce((s,e)=>s+(parseInt(e.qty)||0),0);}
+function invBySize(spId){const m={};stock.filter(e=>e.spId===spId).forEach(e=>{m[e.container]=(m[e.container]||0)+(parseInt(e.qty)||0)});return m;}
+
+const LOC_LABELS={office:'Office Nursery',pump:'Pump House',bt:'BT Landholdings',vendor:'Vendor / Incoming'};
+const LOC_CLASS={office:'loc-office',pump:'loc-pump',bt:'loc-bt',vendor:'loc-vendor'};
+
+// ══════════ MODAL / NAV ══════════
+function openM(id){document.getElementById(id).classList.add('open');}
+function closeM(id){document.getElementById(id).classList.remove('open');}
+function toast(msg,dur=2300){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+
+function nav(name){
+  document.querySelectorAll('.screen').forEach(s=>{s.classList.remove('active');s.style.display='none';});
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('act'));
+  const sc=document.getElementById('sc-'+name);if(sc){sc.style.display='block';sc.classList.add('active');}
+  const nb=document.getElementById('nb-'+name);if(nb)nb.classList.add('act');
+  window.scrollTo(0,0);
+  ({dash:buildDash,pot:buildPottingQueue,inv:buildInv,jobs:buildJobs,care:buildCare,ship:buildShip,docs:buildDocs}[name]||function(){})();
+}
+
+// ══════════ DASHBOARD ══════════
+function buildDash(){
+  document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const total=stock.reduce((s,e)=>s+(parseInt(e.qty)||0),0);
+  const activeJobs=jobs.filter(j=>!j.complete).length;
+  const flags=Object.values(redFlags).filter(Boolean).length;
+  document.getElementById('hdr-stat').textContent=total.toLocaleString()+' plants on hand';
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="sb"><div class="sn" style="color:var(--green3)">${total.toLocaleString()}</div><div class="sl">Total Stock</div></div>
+    <div class="sb"><div class="sn" style="color:var(--blue2)">${activeJobs}</div><div class="sl">Active Jobs</div></div>
+    <div class="sb" style="background:${flags?'var(--red-lt)':'var(--paper)'}"><div class="sn" style="color:${flags?'var(--red2)':'var(--ink3)'}">${flags}</div><div class="sl">🚩 Flags</div></div>`;
+  // Oregon flags
+  let flagHtml='';
+  const now=new Date();
+  jobs.filter(j=>!j.complete&&j.state==='OR').forEach(j=>{
+    if(!j.outplantDate)return;
+    const outplant=new Date(j.outplantDate);
+    const daysOut=Math.round((outplant-now)/(1000*60*60*24));
+    if(daysOut<=21&&daysOut>0){
+      flagHtml+=`<div class="flag-or"><div style="font-weight:700;color:var(--amber2)">⚠️ WSDA INSPECTION DUE — ${j.name} ships to Oregon in ${daysOut} days</div>
+        <div style="font-size:12px;margin-top:4px">Contact: Sara Welch · <a href="mailto:swelch@agr.wa.gov" style="color:var(--amber2)">swelch@agr.wa.gov</a> · ~2 week lead time · WSDA stamp required on BOL</div></div>`;
+    }
+  });
+  document.getElementById('dash-flags').innerHTML=flagHtml;
+  // Shortfall alerts
+  let alerts='';
+  jobs.filter(j=>!j.complete).forEach(j=>{
+    (j.targets||[]).forEach(t=>{
+      const have=invTotal(t.spId,t.container);const need=parseInt(t.qty)||0;
+      if(have>=need)return;
+      const sp=spById(t.spId);const sizeMap=invBySize(t.spId);
+      const smaller=Object.keys(sizeMap).filter(sz=>isSmaller(sz,t.container)&&sizeMap[sz]>0);
+      const pipelineQty=smaller.reduce((s,sz)=>s+sizeMap[sz],0);
+      if(pipelineQty>0){
+        const gr=GROWTH_RATES[t.spId];
+        const warn=gr&&gr.rate==='very_slow'?'⛔':'gr'&&gr?.rate==='slow'?'⚠️':'';
+        alerts+=`<div class="al ala"><span class="ali">⬆️</span><div><b>${j.name} — ${sp.common}:</b> Need ${need} × ${t.container}. Have ${have}. <b>${pipelineQty} in pipeline ${warn}</b> (${smaller.map(sz=>sz+': '+sizeMap[sz]).join(', ')}) — <a href="#" onclick="openUpsizePrompt('${t.spId}','${t.container}','${j.id}');return false" style="color:var(--amber2);font-weight:600">Review ↗</a></div></div>`;
+      } else {
+        alerts+=`<div class="al alr"><span class="ali">⚠️</span><div><b>${j.name} — ${sp.common}:</b> Need ${need} × ${t.container}, have ${have} <span class="chip cr">SHORT ${need-have}</span> — <a href="#" onclick="generateRFQ('${j.id}','${t.spId}');return false" style="color:var(--red2);font-weight:600">Generate RFQ →</a></div></div>`;
+      }
+    });
+  });
+  document.getElementById('dash-alerts').innerHTML=alerts;
+  let jhtml='';
+  if(!jobs.length)jhtml='<div class="card"><div class="cb" style="color:var(--ink3)">No jobs yet — click "+ New Job".</div></div>';
+  jobs.filter(j=>!j.complete).forEach(j=>{
+    const total=(j.targets||[]).reduce((s,t)=>s+(parseInt(t.qty)||0),0);
+    jhtml+=`<div class="card" style="cursor:pointer" onclick="openJobDetail('${j.id}')">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px">
+        <span style="background:${j.color};width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.2);flex-shrink:0"></span>
+        <div style="flex:1"><div style="font-weight:600">${j.name} <span style="font-size:11px;color:var(--ink3);font-weight:400">— ${j.client||''}</span></div>
+          <div style="font-size:11px;color:var(--ink3)">${j.location||''} ${j.outplantDate?'· '+j.outplantDate:''} ${j.state==='OR'?'<span class="chip ca">OR ⚠️</span>':''}</div></div>
+        <div style="font-size:11px;color:var(--ink3)">${(j.targets||[]).length} spp · ${total.toLocaleString()}</div>
+        <span style="color:var(--ink4);font-size:18px">›</span>
+      </div></div>`;
+  });
+  document.getElementById('dash-jobs').innerHTML=jhtml;
+  populateJobSelects();
+}
+
+// ══════════ INVENTORY ══════════
+function buildInv(){
+  const lf=document.getElementById('inv-loc')?.value||'';
+  const tf=document.getElementById('inv-type')?.value||'';
+  const cf=document.getElementById('inv-cont')?.value||'';
+  let html='';
+  masterSpecies.filter(s=>(!tf||s.type===tf)).forEach(s=>{
+    const entries=stock.filter(e=>e.spId===s.id&&(!lf||e.location===lf)&&(!cf||e.container===cf));
+    if(!entries.length)return;
+    const total=entries.reduce((sum,e)=>sum+(parseInt(e.qty)||0),0);
+    const history=countHistory.filter(h=>h.spId===s.id).slice(0,3);
+    html+=`<div class="card">
+      <div class="ch"><div class="chl">
+        <div class="srow-icon" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:${s.type==='tree'?'#d4edda':s.type==='shrub'?'#fff3cd':s.type==='fern'?'#d4edda':'#d1ecf1'}">${s.type==='tree'?'🌲':s.type==='shrub'?'🌿':s.type==='fern'?'🌿':'🌾'}</div>
+        <div><div class="ctitle">${s.common} <span style="font-family:'DM Mono',monospace;font-size:12px;font-weight:400;color:var(--ink3)">${total.toLocaleString()}</span>
+          ${waterSunBadge(s)}
+          <span class="chip ${s.native==='pnw'?'cg':'cr'}" style="margin-left:4px">${s.native==='pnw'?'PNW':'Non-native'}</span></div>
+          <div class="csub" style="font-style:italic">${s.sci}</div></div>
+      </div>
+      ${redFlags[s.id]?'<span class="chip cr">🚩 Hold</span>':''}</div>
+      <div style="overflow-x:auto">
+        <table class="tbl"><thead><tr><th>Location</th><th>Container</th><th>Qty</th><th>Origin</th><th>Height</th><th>Date</th><th>Notes/PO</th><th>Job</th></tr></thead>
+        <tbody>${entries.map(e=>{
+          const job=jobs.find(j=>j.id===e.jobAlloc);
+          return`<tr>
+            <td><span class="loc-pill ${LOC_CLASS[e.location]||'loc-vendor'}">${LOC_LABELS[e.location]||e.location}</span></td>
+            <td style="font-family:'DM Mono',monospace;font-size:11px">${e.container}</td>
+            <td style="font-family:'DM Mono',monospace;font-weight:600">${(parseInt(e.qty)||0).toLocaleString()}</td>
+            <td><span class="chip ${e.origin==='grown'?'cg':e.origin==='carryover'?'cgo':'cb2'}">${({grown:'BT Grown',bare_root_purchase:'Bare Root',vendor:'Vendor',carryover:'Carryover',job_return:'Job Return'}[e.origin])||e.origin}</span></td>
+            <td style="font-size:11px">${e.height||'—'}</td>
+            <td style="font-family:'DM Mono',monospace;font-size:11px">${e.dateAdded||'—'}</td>
+            <td style="font-size:11px;color:var(--ink3)">${e.notes||''}</td>
+            <td style="font-size:11px">${job?`<span style="background:${job.color};color:#fff;padding:1px 6px;border-radius:3px;font-size:10px">${job.name}</span>`:''}</td>
+          </tr>`;
+        }).join('')}</tbody></table>
+      </div>
+      ${history.length?`<div style="padding:8px 14px;border-top:1px solid var(--border2);background:var(--paper)">
+        <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Count History</div>
+        ${history.map(h=>`<div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3)">${h.date} · ${h.location?LOC_LABELS[h.location]:'—'} · ${h.who||'—'} · qty: <b>${h.qty}</b> ${h.notes?'· '+h.notes:''}</div>`).join('')}
+      </div>`:''}
+    </div>`;
+  });
+  document.getElementById('inv-wrap').innerHTML=html||'<div class="card"><div class="cb" style="color:var(--ink3)">No stock entries match this filter.</div></div>';
+  // Also update add-stock dropdown
+  const sel=document.getElementById('as-sp');
+  if(sel){sel.innerHTML='<option value="">— Select species —</option>'+masterSpecies.map(s=>`<option value="${s.id}">${s.common} (${s.sci})</option>`).join('');}
+}
+
+// ══════════ FUZZY DUPE CHECK (Add Stock) ══════════
+function filterAddStock(q){
+  const sel=document.getElementById('as-sp');if(!sel)return;
+  const nq=(q||'').toLowerCase();
+  sel.innerHTML='<option value="">— Select species —</option>'+
+    masterSpecies.filter(s=>!nq||s.common.toLowerCase().includes(nq)||s.sci.toLowerCase().includes(nq))
+      .map(s=>`<option value="${s.id}">${s.common} (${s.sci})</option>`).join('');
+}
+
+function checkDuplicate(){
+  const spId=document.getElementById('as-sp')?.value;
+  const cont=document.getElementById('as-cont')?.value;
+  const loc=document.getElementById('as-loc')?.value;
+  const el=document.getElementById('as-dup-warn');
+  if(!el||!spId||!cont||!loc)return;
+  const existing=stock.find(e=>e.spId===spId&&e.container===cont&&e.location===loc);
+  if(existing){
+    const sp=spById(spId);
+    el.innerHTML=`<div class="dup-warning">⚠️ <b>Existing entry found:</b> ${sp.common} ${cont} at ${LOC_LABELS[loc]} already has <b>${existing.qty} plants</b> (added ${existing.dateAdded}). This will add to that total. If this is a new count, consider using Photo Count instead.</div>`;
+  } else el.innerHTML='';
+}
+
+function saveStock(){
+  const spId=document.getElementById('as-sp').value;if(!spId){toast('Select a species');return;}
+  const qty=parseInt(document.getElementById('as-qty').value)||0;if(qty<=0){toast('Enter qty > 0');return;}
+  const entry={id:'stk_'+Date.now(),spId,container:document.getElementById('as-cont').value,qty,
+    location:document.getElementById('as-loc').value,origin:document.getElementById('as-origin').value,
+    height:document.getElementById('as-ht').value,dateAdded:document.getElementById('as-date').value||today(),
+    notes:document.getElementById('as-notes').value,jobAlloc:document.getElementById('as-job').value};
+  stock.push(entry);sv(SK.stock,stock);
+  closeM('m-addstock');toast('✅ '+qty+' '+spById(spId).common+' added');
+  buildInv();buildDash();
+}
+
+// ══════════ RECEIVE STOCK ══════════
+let receiveRowCount=0;
+function addReceiveRow(){
+  receiveRowCount++;
+  const div=document.createElement('div');
+  div.id='rv-row-'+receiveRowCount;
+  div.style.cssText='display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;align-items:end';
+  div.innerHTML=`
+    <div class="f"><label>Species</label>
+      <select style="font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option value="">— Select —</option>
+        ${masterSpecies.map(s=>`<option value="${s.id}">${s.common}</option>`).join('')}
+      </select></div>
+    <div class="f"><label>Container</label>
+      <select style="font-size:12px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option value="plug">Plug</option><option value="4in">4"</option>
+        <option value="#1">#1</option><option value="#2">#2</option><option value="#3">#3</option><option value="#5">#5</option>
+        <option value="bare root">Bare Root</option>
+      </select></div>
+    <div class="f"><label>Qty</label><input type="number" min="0" placeholder="0" style="font-size:13px;padding:6px 8px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)"></div>`;
+  document.getElementById('rv-rows').appendChild(div);
+}
+
+function saveReceiving(){
+  const vendor=document.getElementById('rv-vendor').value.trim();
+  const inv=document.getElementById('rv-inv').value.trim();
+  const date=document.getElementById('rv-date').value||today();
+  const loc=document.getElementById('rv-loc').value;
+  const jobAlloc=document.getElementById('rv-job').value;
+  const rows=document.querySelectorAll('[id^="rv-row-"]');
+  let count=0;
+  rows.forEach(row=>{
+    const sel=row.querySelector('select');const cont=row.querySelectorAll('select')[1];const qty=row.querySelector('input');
+    const spId=sel?.value;const q=parseInt(qty?.value)||0;
+    if(spId&&q>0){
+      stock.push({id:'stk_'+Date.now()+'_'+Math.random().toString(36).slice(2),spId,
+        container:cont?.value||'#1',qty:q,location:loc,origin:'vendor',
+        dateAdded:date,notes:`From: ${vendor}${inv?' · Invoice: '+inv:''}`,jobAlloc});
+      count++;
+    }
+  });
+  if(!count){toast('Add at least one species');return;}
+  sv(SK.stock,stock);closeM('m-receive');
+  document.getElementById('rv-rows').innerHTML='';receiveRowCount=0;
+  toast(`✅ Received ${count} entries from ${vendor}`);buildInv();buildDash();
+}
+
+// ══════════ NEW PLANT SPECIES (with fuzzy dup check) ══════════
+function checkNewPlantDup(){
+  const common=document.getElementById('ap-common')?.value||'';
+  const sci=document.getElementById('ap-sci')?.value||'';
+  const el=document.getElementById('ap-dup-warn');
+  if(!el||(common.length<3&&sci.length<3))return;
+  const matches=fuzzyMatch(common,masterSpecies).filter(m=>m.dist<=3);
+  const sciMatches=masterSpecies.filter(s=>sci.length>4&&s.sci.toLowerCase().includes(sci.toLowerCase().slice(0,6)));
+  const all=[...new Set([...matches.map(m=>m.sp),...sciMatches])];
+  if(!all.length){el.innerHTML='';return;}
+  el.innerHTML=`<div class="dup-warning">
+    <div style="font-weight:700;color:var(--amber);margin-bottom:6px">⚠️ Similar plants already in system — is this the same?</div>
+    ${all.slice(0,3).map(sp=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:#fff;border-radius:4px;margin-bottom:4px;font-size:12px">
+      <div><b>${sp.common}</b> <em style="color:var(--ink3)">${sp.sci}</em></div>
+      <span class="chip cb2">In system</span>
+    </div>`).join('')}
+    <div style="font-size:11px;color:var(--amber);margin-top:4px">If this is the same plant, close this and use "+ Add Stock" instead. If it's genuinely different, continue saving.</div>
+  </div>`;
+}
+
+function savePlantSpecies(){
+  const common=document.getElementById('ap-common').value.trim();
+  const sci=document.getElementById('ap-sci').value.trim();
+  if(!common){toast('Enter a common name');return;}
+  const matches=fuzzyMatch(common,masterSpecies).filter(m=>m.dist<=2);
+  if(matches.length>0&&!confirm(`Found similar: "${matches[0].sp.common}". Save as a NEW separate species?`))return;
+  const sp={id:'custom_'+Date.now(),common,sci,type:document.getElementById('ap-type').value,
+    native:document.getElementById('ap-native').value,sizes:[document.getElementById('ap-cont').value],
+    notes:document.getElementById('ap-notes').value,
+    water:parseInt(document.getElementById('ap-water').value)||2,
+    sun:document.getElementById('ap-sun').value||'part',
+    custom:true};
+  masterSpecies.push(sp);
+  const saved=(ld(SK.plants)||[]).filter(s=>s.custom);saved.push(sp);sv(SK.plants,saved);
+  closeM('m-addplant');toast('✅ '+common+' added to master list');buildInv();
+}
+
+// ══════════ PHOTO SCAN ══════════
+let scanResults=[];
+async function handleScanUpload(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async(ev)=>{
+    const b64=ev.target.result.split(',')[1];
+    const prev=document.getElementById('scan-preview-content');
+    prev.innerHTML=`<img src="${ev.target.result}" style="max-height:200px;object-fit:contain">`;
+    document.getElementById('scan-reading').style.display='block';
+    document.getElementById('scan-results').style.display='none';
+    try{
+      const resp=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,
+          messages:[{role:'user',content:[
+            {type:'image',source:{type:'base64',media_type:file.type,data:b64}},
+            {type:'text',text:'This is a handwritten or printed plant inventory count sheet. Extract every plant entry that has a non-zero quantity. Return ONLY a JSON array, no other text, no markdown. Each object: {"common": "plant common name", "scientific": "scientific name if visible", "container": "container size like #1, plug, 4in, bare root", "qty": number}. Normalize container sizes: 4 inch/4"/4 cube = "4in", #1 gal/#1 gallon = "#1", plug/CI = "plug". Skip zero-quantity rows.'}
+          ]}]})});
+      const data=await resp.json();
+      const raw=data.content?.filter(c=>c.type==='text').map(c=>c.text).join('');
+      let parsed=[];
+      try{parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch{parsed=[];}
+      scanResults=parsed;
+      renderScanResults(parsed);
+    }catch(err){
+      document.getElementById('scan-results').style.display='block';
+      document.getElementById('scan-results').innerHTML=`<div class="al alr"><span class="ali">⚠️</span><div>Could not read the image. Try a clearer photo with better lighting. (${err.message})</div></div>`;
+    }
+    document.getElementById('scan-reading').style.display='none';
+  };reader.readAsDataURL(file);
+}
+
+function renderScanResults(parsed){
+  const el=document.getElementById('scan-results');
+  const actions=document.getElementById('scan-actions');
+  if(!parsed.length){el.innerHTML='<div class="al ala"><span class="ali">⚠️</span><div>No plant entries found. Try a clearer photo.</div></div>';el.style.display='block';return;}
+  const loc=document.getElementById('scan-loc').value;
+  let html=`<div style="font-weight:600;margin-bottom:8px">Claude read ${parsed.length} entries — confirm before saving:</div>
+    <table class="tbl"><thead><tr><th>#</th><th>Common Name</th><th>Matched Species</th><th>Container</th><th>Qty</th><th>Edit Qty</th></tr></thead><tbody>`;
+  parsed.forEach((row,i)=>{
+    const matches=fuzzyMatch(row.common||'',masterSpecies);
+    const best=matches[0];
+    const contNorm=normalizeSize(row.container||'#1');
+    const dupWarn=best&&best.dist<=1?'':best?`<div style="font-size:10px;color:var(--amber2)">Fuzzy match — confirm</div>`:'<div style="font-size:10px;color:var(--red2)">No match found</div>';
+    html+=`<tr>
+      <td style="font-family:'DM Mono',monospace;color:var(--ink3)">${i+1}</td>
+      <td style="font-size:12px"><b>${row.common||'?'}</b>${row.scientific?`<br><em style="font-size:10px;color:var(--ink3)">${row.scientific}</em>`:''}</td>
+      <td style="font-size:11px">${best?`<select id="scan-sp-${i}" style="font-size:11px;padding:3px 5px;border:1px solid var(--border);border-radius:3px;background:var(--paper)">
+        ${masterSpecies.map(s=>`<option value="${s.id}" ${s.id===best.sp.id?'selected':''}>${s.common}</option>`).join('')}
+        <option value="">— Not in list —</option>
+      </select>${dupWarn}`:'<span style="color:var(--red2);font-size:11px">No match</span>'}</td>
+      <td><select id="scan-cont-${i}" style="font-size:11px;padding:3px 5px;border:1px solid var(--border);border-radius:3px;background:var(--paper)">
+        ${['plug','4in','bare root','live stake','#1','#2','#3','#5'].map(s=>`<option value="${s}" ${s===contNorm?'selected':''}>${s}</option>`).join('')}
+      </select></td>
+      <td style="font-family:'DM Mono',monospace;font-weight:600">${row.qty||0}</td>
+      <td><input type="number" id="scan-qty-${i}" value="${row.qty||0}" min="0" style="width:60px;font-size:12px;padding:3px 5px;border:1px solid var(--border);border-radius:3px"></td>
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  el.innerHTML=html;el.style.display='block';actions.style.display='flex';
+}
+
+function confirmScanResults(){
+  const loc=document.getElementById('scan-loc').value;
+  const date=today();let saved=0,skipped=0;
+  scanResults.forEach((row,i)=>{
+    const spId=document.getElementById('scan-sp-'+i)?.value;
+    const cont=document.getElementById('scan-cont-'+i)?.value;
+    const qty=parseInt(document.getElementById('scan-qty-'+i)?.value)||0;
+    if(!spId||!qty){skipped++;return;}
+    // Log count history
+    countHistory.unshift({id:'ch_'+Date.now()+'_'+i,spId,location:loc,container:cont,qty,date,who:'Photo Scan',notes:'Photo inventory count'});
+    // Update or add stock
+    const existing=stock.find(e=>e.spId===spId&&e.container===cont&&e.location===loc);
+    if(existing)existing.qty=qty;
+    else stock.push({id:'stk_'+Date.now()+'_'+i,spId,container:cont,qty,location:loc,origin:'counted',dateAdded:date,notes:'Photo inventory count',jobAlloc:''});
+    saved++;
+  });
+  sv(SK.stock,stock);sv(SK.countHistory,countHistory.slice(0,200));
+  closeM('m-scan');toast(`✅ ${saved} entries saved${skipped?' · '+skipped+' skipped':''}`);
+  buildInv();buildDash();
+}
+
+// ══════════ JOBS ══════════
+function buildJobSpRows(q=''){
+  const rows=masterSpecies.filter(s=>!q||s.common.toLowerCase().includes(q.toLowerCase())||s.sci.toLowerCase().includes(q.toLowerCase()));
+  document.getElementById('j-sp-rows').innerHTML=rows.map(s=>`
+    <div style="padding:8px 12px;border-bottom:1px solid var(--border2)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <input type="checkbox" id="jck-${s.id}" onchange="toggleJF('${s.id}')" style="width:16px;height:16px;accent-color:var(--green2)">
+        <label for="jck-${s.id}" style="font-weight:600;font-size:13px;cursor:pointer">${s.common}</label>
+        <em style="font-size:10px;color:var(--ink3)">${s.sci}</em>
+        <span class="chip ${s.native==='pnw'?'cg':'cr'}" style="margin-left:auto">${s.native==='pnw'?'PNW':'Non-native'}</span>
+      </div>
+      <div id="jf-${s.id}" style="display:none;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:6px">
+        <div class="f"><label>Qty</label><input type="number" id="jq-${s.id}" min="0" placeholder="0"></div>
+        <div class="f"><label>Container</label>
+          <select id="jc-${s.id}">${s.sizes.map(sz=>`<option value="${sz}">${sz}</option>`).join('')}<option value="bare root">bare root</option><option value="live stake">live stake</option></select></div>
+        <div class="f"><label>Min Height</label>
+          <select id="jh-${s.id}"><option value="">No spec</option>
+            <option>6"–12"</option><option>12"–18"</option><option>18"–24"</option><option>24"–36"</option>
+            <option>1'–2'</option><option>2'–3'</option><option>3'–4'</option><option>4'–5'</option><option>5'–6'</option><option>6'+</option>
+          </select></div>
+        <div class="f"><label>Stem Form</label>
+          <select id="jstem-${s.id}"><option value="">No spec</option>
+            <option>Single stem</option><option>Multi-stem</option><option>Multi-cane</option><option>Single trunk</option></select></div>
+        <div class="f"><label>Min Caliper</label><input type="text" id="jcal-${s.id}" placeholder='0.5"'></div>
+      </div>
+    </div>`).join('');
+}
+function filterJobSp(q){buildJobSpRows(q);}
+function toggleJF(id){const f=document.getElementById('jf-'+id);if(f)f.style.display=document.getElementById('jck-'+id).checked?'grid':'none';}
+function checkORFlag(){document.getElementById('j-or-flag').style.display=document.getElementById('j-state').value==='OR'?'block':'none';}
+
+function saveJob(){
+  const name=document.getElementById('j-name').value.trim();if(!name){toast('Enter job name');return;}
+  const targets=[];
+  masterSpecies.forEach(s=>{
+    const ck=document.getElementById('jck-'+s.id);if(!ck?.checked)return;
+    const qty=parseInt(document.getElementById('jq-'+s.id)?.value)||0;if(!qty)return;
+    targets.push({spId:s.id,qty,container:document.getElementById('jc-'+s.id)?.value||'#1',
+      heightSpec:document.getElementById('jh-'+s.id)?.value||'',
+      stemForm:document.getElementById('jstem-'+s.id)?.value||'',
+      caliperSpec:document.getElementById('jcal-'+s.id)?.value||''});
+  });
+  const job={id:'job_'+Date.now(),name,client:document.getElementById('j-client').value,
+    color:document.getElementById('j-color').value,colorName:document.getElementById('j-colorname').value,
+    outplantDate:document.getElementById('j-date').value,window:document.getElementById('j-window').value,
+    state:document.getElementById('j-state').value,location:document.getElementById('j-loc').value,
+    notes:document.getElementById('j-notes').value,targets,complete:false,created:today()};
+  jobs.push(job);sv(SK.jobs,jobs);
+  closeM('m-addjob');toast('✅ Job saved: '+name);buildDash();buildJobs();
+}
+
+function buildJobs(){
+  const el=document.getElementById('jobs-list');
+  if(!jobs.length){el.innerHTML='<div class="card"><div class="cb" style="color:var(--ink3)">No jobs yet.</div></div>';return;}
+  el.innerHTML=jobs.map(j=>{
+    const total=(j.targets||[]).reduce((s,t)=>s+(parseInt(t.qty)||0),0);
+    return`<div class="card">
+      <div class="ch"><div class="chl">
+        <span style="background:${j.color};width:16px;height:16px;border-radius:3px;border:1px solid rgba(0,0,0,.2);flex-shrink:0"></span>
+        <div><div class="ctitle">${j.name}</div><div class="csub">${j.client||''} ${j.location?'· '+j.location:''}</div></div>
+      </div>
+      <div style="display:flex;gap:5px;align-items:center">
+        ${j.state==='OR'?'<span class="chip ca">OR ⚠️</span>':''}
+        <button class="btn bo bsm" onclick="openJobDetail('${j.id}')">Detail</button>
+        <button class="btn bo bsm" onclick="toggleJobDone('${j.id}')">${j.complete?'Reopen':'✓ Done'}</button>
+      </div></div>
+      <div class="cb" style="overflow-x:auto">
+        <table class="tbl"><thead><tr><th>Species</th><th>Qty</th><th>Container</th><th>Height</th><th>Stem</th><th>Caliper</th><th>In Stock</th><th>Status</th></tr></thead>
+        <tbody>${(j.targets||[]).map(t=>{
+          const sp=spById(t.spId);const have=invTotal(t.spId,t.container);const need=parseInt(t.qty)||0;const ok=have>=need;
+          const sizeMap=invBySize(t.spId);const pipe=Object.keys(sizeMap).filter(sz=>isSmaller(sz,t.container)&&sizeMap[sz]>0);
+          return`<tr><td><b>${sp.common}</b><br><em style="font-size:10px;color:var(--ink3)">${sp.sci}</em></td>
+            <td style="font-family:'DM Mono',monospace;font-weight:600">${need.toLocaleString()}</td>
+            <td style="font-family:'DM Mono',monospace;font-size:11px">${t.container}</td>
+            <td style="font-size:11px">${t.heightSpec||'—'}</td>
+            <td style="font-size:11px">${t.stemForm||'—'}</td>
+            <td style="font-size:11px;font-family:'DM Mono',monospace">${t.caliperSpec||'—'}</td>
+            <td style="font-family:'DM Mono',monospace;color:${ok?'var(--green2)':'var(--red2)'};font-weight:600">${have.toLocaleString()}</td>
+            <td>${ok?'<span class="chip cg">✓</span>':pipe.length?'<span class="chip ca">⬆️</span>':'<span class="chip cr">Short '+(need-have)+'</span>'}</td>
+          </tr>`;
+        }).join('')}</tbody></table>
+      </div></div>`;
+  }).join('');
+}
+
+function toggleJobDone(id){const j=jobs.find(x=>x.id===id);if(j){j.complete=!j.complete;sv(SK.jobs,jobs);buildJobs();buildDash();toast(j.complete?'Job closed':'Job reopened');}}
+
+function openJobDetail(id){
+  const j=jobs.find(x=>x.id===id);if(!j)return;
+  document.getElementById('jd-title').textContent=j.name+' — '+j.colorName;
+  const hardenDays=j.hardenDate?Math.round((new Date(j.outplantDate)-new Date(j.hardenDate))/(1000*60*60*24)):'not set';
+  let html=`<div class="fr fc2" style="margin-bottom:12px;font-size:13px">
+    <div><span class="csub">Client</span><div style="font-weight:600">${j.client||'—'}</div></div>
+    <div><span class="csub">Flag</span><div style="display:flex;align-items:center;gap:6px"><span style="background:${j.color};width:18px;height:18px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.2)"></span><b>${j.colorName}</b></div></div>
+    <div><span class="csub">Location</span><div>${j.location||'—'}</div></div>
+    <div><span class="csub">Outplant</span><div>${j.outplantDate||'—'} ${j.state==='OR'?'<span class="chip ca">Oregon — WSDA inspection needed</span>':''}</div></div>
+    <div><span class="csub">Planting Window</span><div>${j.window==='wet'?'Oct–Feb (non-irrigated)':'Any season (irrigated)'}</div></div>
+    <div><span class="csub">Stop-Fert Date</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <input type="date" id="jd-harden" value="${j.hardenDate||''}" style="font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:3px" onchange="setHardenDate('${j.id}',this.value)">
+        <span style="font-size:11px;color:var(--ink3)">(${hardenDays} days before outplant)</span>
+      </div></div>
+  </div>
+  ${j.notes?`<div class="al alb" style="margin-bottom:10px"><span class="ali">📝</span><div>${j.notes}</div></div>`:''}
+  <div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Species</th><th>Qty</th><th>Container</th><th>Height Spec</th><th>Stem Form</th><th>Caliper</th><th>In Stock</th></tr></thead>
+  <tbody>${(j.targets||[]).map(t=>{
+    const sp=spById(t.spId);const have=invTotal(t.spId,t.container);const ok=have>=(parseInt(t.qty)||0);
+    return`<tr><td><b>${sp.common}</b><br><em style="font-size:10px;color:var(--ink3)">${sp.sci}</em></td>
+      <td style="font-family:'DM Mono',monospace;font-weight:600">${(parseInt(t.qty)||0).toLocaleString()}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px">${t.container}</td>
+      <td style="font-size:11px">${t.heightSpec||'—'}</td>
+      <td style="font-size:11px">${t.stemForm||'—'}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px">${t.caliperSpec||'—'}</td>
+      <td style="font-weight:600;color:${ok?'var(--green2)':'var(--red2)'}">${have} / ${t.qty}</td>
+    </tr>`;
+  }).join('')}</tbody></table></div>
+  <div class="brow" style="margin-top:12px">
+    <button class="btn bg bsm" onclick="generateBOL('${j.id}')">📄 Generate BOL</button>
+    <button class="btn bo bsm" onclick="generateRFQ('${j.id}',null)">📋 Generate RFQ for Shortfalls</button>
+    <button class="btn bo bsm" onclick="closeM('m-jobdetail')">Close</button>
+  </div>`;
+  document.getElementById('jd-body').innerHTML=html;openM('m-jobdetail');
+}
+
+function setHardenDate(jobId,date){
+  const j=jobs.find(x=>x.id===jobId);if(!j)return;
+  j.hardenDate=date;sv(SK.jobs,jobs);toast('🌿 Stop-fert date set: '+date);buildCare();
+}
+
+// ══════════ UPSIZE PROMPT ══════════
+function openUpsizePrompt(spId,targetContainer,jobId){
+  const sp=spById(spId);const sizeMap=invBySize(spId);
+  const smaller=Object.keys(sizeMap).filter(sz=>isSmaller(sz,targetContainer)&&sizeMap[sz]>0);
+  const gr=GROWTH_RATES[spId];
+  let warnHtml='';
+  if(gr){
+    const lvl=gr.rate==='very_slow'?'alr':gr.rate==='slow'?'ala':'alg';
+    const ico=gr.rate==='very_slow'?'⛔':gr.rate==='slow'?'⚠️':'✅';
+    warnHtml=`<div class="al ${lvl}"><span class="ali">${ico}</span><div><b>${gr.time}</b><br>${gr.note}</div></div>`;
+  }
+  document.getElementById('upsize-body').innerHTML=`
+    ${warnHtml}
+    <div style="margin-bottom:12px">${smaller.map(sz=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px">
+        <b>${sp.common}</b> <span class="chip ca">${sz}</span> — ${sizeMap[sz].toLocaleString()} available → <b>${targetContainer}</b>
+      </div>`).join('')}</div>
+    <div class="fr fc2">
+      <div class="f"><label>Decision</label>
+        <select id="ups-dec">
+          <option value="upsize">Upsize now — log as ${targetContainer}</option>
+          <option value="po">Order via PO from vendor</option>
+          <option value="wait">Leave in current size — will be ready</option>
+          <option value="shortfall">Flag as shortfall 🚩</option>
+        </select></div>
+      <div class="f"><label>PO # / Notes</label><input type="text" id="ups-po" placeholder="PO #, vendor, notes..."></div>
+    </div>
+    <div class="fr fc2">
+      <div class="f"><label>Qty</label><input type="number" id="ups-qty" placeholder="#"></div>
+      <div class="f"><label>Location</label>
+        <select id="ups-loc"><option value="office">Office</option><option value="pump">Pump House</option><option value="bt">BT Landholdings</option></select>
+      </div>
+    </div>
+    <div class="brow">
+      <button class="btn bg" onclick="saveUpsize('${spId}','${targetContainer}','${jobId}')">💾 Save</button>
+      <button class="btn bo" onclick="closeM('m-upsize')">Cancel</button>
+    </div>`;
+  openM('m-upsize');
+}
+
+function saveUpsize(spId,targetCont,jobId){
+  const dec=document.getElementById('ups-dec').value;
+  const po=document.getElementById('ups-po').value;
+  const qty=parseInt(document.getElementById('ups-qty').value)||0;
+  const loc=document.getElementById('ups-loc').value;
+  const sp=spById(spId);
+  if(dec==='upsize'&&qty>0){
+    stock.push({id:'stk_'+Date.now(),spId,container:targetCont,qty,location:loc,origin:'carryover',dateAdded:today(),notes:'Upsized from smaller container. '+po,jobAlloc:jobId});
+    sv(SK.stock,stock);toast('✅ '+qty+' '+sp.common+' logged as upsized to '+targetCont);
+  } else if(dec==='shortfall'){
+    redFlags[spId]=true;sv(SK.redFlags,redFlags);toast('🚩 Red flag set for '+sp.common);
+  } else toast('Decision logged');
+  closeM('m-upsize');buildDash();buildInv();
+}
+
+// ══════════ ADD STOCK HELPERS ══════════
+function autoSetSeason() {
+  const dateVal = document.getElementById('as-date')?.value;
+  if(!dateVal) return;
+  const season = seasonFromDate(dateVal);
+  const sel = document.getElementById('as-season');
+  if(sel) for(let i=0;i<sel.options.length;i++){if(sel.options[i].value===season){sel.selectedIndex=i;return;}}
+}
+function updateHeightOpts() {
+  const spId = document.getElementById('as-sp')?.value;
+  const sp = spId ? spById(spId) : null;
+  const sel = document.getElementById('as-ht'); if(!sel) return;
+  const scale = (sp?.type==='tree') ? HEIGHT_TREE : HEIGHT_SHRUB;
+  sel.innerHTML = '<option value="">— Select height —</option>' + scale.map(h=>`<option value="${h}">${h}</option>`).join('');
+}
+
+// ══════════ CARE ══════════
+const FERT_RATE={'plug':'½ tsp','4in':'½ tsp','bare root':'N/A','#1':'1 tsp','#2':'2 tsp','#3':'1 tbsp','#5':'1 tbsp','#7':'2 tbsp'};
+function buildCare(){
+  buildFert(); buildHarden(); buildWeedLog();
+}
+
+function buildFert(){
+  const mi=parseInt(document.getElementById('fert-mo')?.value||3);
+  let html=`<table class="tbl" style="min-width:620px"><thead><tr><th>Species</th><th>Water · Sun</th><th>Container</th><th>Rate</th><th>Location</th><th>Root Check</th><th>Applied</th><th>🚩</th></tr></thead><tbody>`;
+  masterSpecies.forEach(s=>{
+    const qty=invTotal(s.id);if(!qty)return;
+    const entries=stock.filter(e=>e.spId===s.id);
+    const cont=entries[0]?.container||'#1';
+    const rk=s.id+'_'+mi,r=fertRes[rk],done=fertDone[rk],flagged=redFlags[s.id];
+    // Check if job says harden off
+    const jobHarden=jobs.find(j=>j.hardenDate&&new Date(j.hardenDate)<=new Date()&&(j.targets||[]).some(t=>t.spId===s.id));
+    html+=`<tr style="${flagged||jobHarden?'background:var(--red-lt)':''}">
+      <td><b>${s.common}</b></td>
+      <td>${waterSunBadge(s)}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px">${cont}</td>
+      <td style="font-family:'DM Mono',monospace;font-size:11px">${FERT_RATE[cont]||'per label'}</td>
+      <td style="font-size:11px">${[...new Set(entries.map(e=>LOC_LABELS[e.location]||e.location))].join(', ')}</td>
+      <td><div style="display:flex;gap:3px">${['good','needs','flag'].map(rv=>{
+        const lbl={good:'✅',needs:'⚠️',flag:'🚩'}[rv];const sel=r===rv;
+        const bg={good:'var(--green-lt)',needs:'var(--amber-lt)',flag:'var(--red-lt)'}[rv];
+        const br={good:'var(--green3)',needs:'var(--amber3)',flag:'var(--red3)'}[rv];
+        return`<div onclick="setFR('${s.id}',${mi},'${rv}')" style="width:28px;height:28px;border-radius:50%;border:2px solid ${sel?br:'var(--border)'};background:${sel?bg:'var(--paper3)'};display:flex;align-items:center;justify-content:center;cursor:pointer">${lbl}</div>`;
+      }).join('')}</div></td>
+      <td style="text-align:center">${flagged||jobHarden?`<span class="chip cr">${jobHarden?'HARDEN':'HOLD'}</span>`:`<div onclick="toggleFD('${s.id}',${mi})" style="width:24px;height:24px;border-radius:4px;border:2px solid ${done?'var(--green2)':'var(--border)'};background:${done?'var(--green2)':'#fff'};display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:14px">${done?'✓':''}</div>`}</td>
+      <td><input type="checkbox" ${flagged?'checked':''} onchange="toggleFlag('${s.id}',this.checked)" style="width:14px;height:14px;accent-color:var(--red2);cursor:pointer"></td>
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  document.getElementById('fert-wrap').innerHTML=html;
+}
+
+function setFR(spId,mi,result){const k=spId+'_'+mi;fertRes[k]=fertRes[k]===result?null:result;if(result==='flag'){redFlags[spId]=true;sv(SK.redFlags,redFlags);}sv(SK.fertRes,fertRes);buildFert();}
+function toggleFD(spId,mi){const k=spId+'_'+mi;if(redFlags[spId]){toast('🚩 On hold');return;}if(fertRes[k]!=='good'){toast('Set root check to ✅ first');return;}fertDone[k]=!fertDone[k];sv(SK.fertDone,fertDone);buildFert();toast(fertDone[k]?'✅ Applied':'Cleared');}
+function toggleFlag(spId,checked){redFlags[spId]=checked;sv(SK.redFlags,redFlags);buildFert();buildDash();toast(checked?'🚩 Flag set':'Flag cleared');}
+
+function buildHarden(){
+  const el=document.getElementById('harden-wrap');
+  const active=jobs.filter(j=>!j.complete&&j.outplantDate);
+  if(!active.length){el.innerHTML='<div style="padding:12px;color:var(--ink3);font-size:13px">No active jobs with outplant dates.</div>';return;}
+  el.innerHTML=active.map(j=>{
+    const daysToOutplant=j.outplantDate?Math.round((new Date(j.outplantDate)-new Date())/(1000*60*60*24)):null;
+    const hardenActive=j.hardenDate&&new Date(j.hardenDate)<=new Date();
+    return`<div class="harden-row" style="${hardenActive?'background:var(--amber-lt)':''}">
+      <span style="background:${j.color};width:12px;height:12px;border-radius:2px;flex-shrink:0"></span>
+      <div style="flex:1"><b>${j.name}</b> <span style="font-size:11px;color:var(--ink3)">· outplant ${j.outplantDate||'?'} (${daysToOutplant!=null?daysToOutplant+' days away':'date not set'})</span></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        ${hardenActive?'<span class="chip ca">🌿 Hardening now — hold fert</span>':''}
+        <input type="date" value="${j.hardenDate||''}" onchange="setHardenDate('${j.id}',this.value)" style="font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:3px" title="Stop-fert date">
+        <span style="font-size:10px;color:var(--ink3)">stop fert</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function saveLog(type){
+  const entry={date:document.getElementById(type+'-dt').value,who:document.getElementById(type+'-who')?.value,location:document.getElementById(type+'-loc')?.value,notes:document.getElementById(type+'-notes')?.value,ts:Date.now()};
+  if(!entry.date){toast('Enter date');return;}
+  (logs[type]=logs[type]||[]).unshift(entry);sv(SK.logs,logs);buildCare();toast('💾 Saved');
+}
+
+// ══════════ SHIP ══════════
+function buildShip(){
+  const el=document.getElementById('ship-wrap');
+  if(!jobs.length){el.innerHTML='<div class="card"><div class="cb" style="color:var(--ink3)">No jobs yet.</div></div>';return;}
+  el.innerHTML=jobs.filter(j=>!j.complete).map(j=>`
+    <div class="card">
+      <div class="ch"><div class="chl">
+        <span style="background:${j.color};width:32px;height:32px;border-radius:5px;border:2px solid rgba(0,0,0,.15);flex-shrink:0"></span>
+        <div><div class="ctitle">${j.name} — <span style="color:${j.color}">${j.colorName} Flag</span></div>
+          <div class="csub">${j.client||''} · ${j.location||''} ${j.state==='OR'?'· <b style="color:var(--amber2)">WSDA inspection required</b>':''}</div></div>
+      </div>
+      <div style="display:flex;gap:5px">
+        <button class="btn bg bsm" onclick="openInspect('${j.id}')">📸 Inspection Photos</button>
+        <button class="btn bo bsm" onclick="openReject('${j.id}')">🚫 Rejected Plants</button>
+        <button class="btn bo bsm" onclick="generateBOL('${j.id}')">📄 BOL</button>
+      </div></div>
+      <div class="cb" style="overflow-x:auto">
+        <table class="tbl"><thead><tr><th>Species</th><th>Need</th><th>Container</th><th>Height</th><th>Stem Form</th><th>Caliper</th><th>Source</th><th>In Stock</th><th>Photos</th></tr></thead>
+        <tbody>${(j.targets||[]).map(t=>{
+          const sp=spById(t.spId);const have=invTotal(t.spId,t.container);const ok=have>=(parseInt(t.qty)||0);
+          const byLoc=Object.entries({'office':'Office','pump':'Pump House','bt':'BT Landholdings'}).map(([k,v])=>{const q=invByLoc(t.spId,k,t.container);return q?`<span class="loc-pill ${LOC_CLASS[k]}">${v}: ${q}</span>`:''}).filter(Boolean).join(' ');
+          const photos=inspPhotos[j.id+'-'+t.spId]||{};
+          return`<tr>
+            <td><b>${sp.common}</b><br><em style="font-size:10px;color:var(--ink3)">${sp.sci}</em></td>
+            <td style="font-family:'DM Mono',monospace;font-weight:600">${(parseInt(t.qty)||0).toLocaleString()}</td>
+            <td style="font-family:'DM Mono',monospace;font-size:11px">${t.container}</td>
+            <td style="font-size:11px">${t.heightSpec||'—'}</td>
+            <td style="font-size:11px">${t.stemForm||'—'}</td>
+            <td style="font-size:11px;font-family:'DM Mono',monospace">${t.caliperSpec||'—'}</td>
+            <td style="font-size:11px">${byLoc||'—'}</td>
+            <td style="font-weight:600;color:${ok?'var(--green2)':'var(--red2)'}">${have}</td>
+            <td style="font-size:11px">${photos.close&&photos.group?'<span class="chip cg">✓ 2 photos</span>':photos.close||photos.group?'<span class="chip ca">1/2</span>':'<span class="chip cr">None</span>'}</td>
+          </tr>`;
+        }).join('')}</tbody></table>
+      </div></div>`).join('');
+}
+
+// ══════════ INSPECTION PHOTOS ══════════
+function openInspect(jobId){
+  const j=jobs.find(x=>x.id===jobId);if(!j)return;
+  document.getElementById('inspect-body').innerHTML=`
+    <div class="al alb"><span class="ali">📸</span><div>At the job site staging area, take 2 photos per species: <b>1) Close-up with tag readable</b> and <b>2) Group/staging shot</b>. These document what was delivered and can be shared with project engineers.</div></div>
+    ${(j.targets||[]).map(t=>{
+      const sp=spById(t.spId);const key=j.id+'-'+t.spId;const photos=inspPhotos[key]||{};
+      return`<div style="border:1px solid var(--border2);border-radius:var(--r6);padding:12px;margin-bottom:10px">
+        <div style="font-weight:600;margin-bottom:8px">${sp.common} <em style="font-size:11px;color:var(--ink3);font-weight:400">${sp.sci}</em> · ${t.qty} × ${t.container}</div>
+        <div class="fr fc2">
+          <div>
+            <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);margin-bottom:4px">PHOTO 1 — Close-up, tag visible</div>
+            ${photos.close?`<img src="${photos.close}" style="width:100%;max-height:120px;object-fit:cover;border-radius:var(--r4);margin-bottom:4px"><button class="btn bo bsm" onclick="clearPhoto('${key}','close')">↩ Replace</button>`:`<div class="scan-preview" style="padding:10px" onclick="document.getElementById('ip-close-${t.spId}').click()"><div style="font-size:20px">📷</div><div style="font-size:11px">Tap to upload</div></div><input type="file" id="ip-close-${t.spId}" accept="image/*" style="display:none" onchange="saveInspPhoto('${key}','close',event)">`}
+          </div>
+          <div>
+            <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);margin-bottom:4px">PHOTO 2 — Group staging shot</div>
+            ${photos.group?`<img src="${photos.group}" style="width:100%;max-height:120px;object-fit:cover;border-radius:var(--r4);margin-bottom:4px"><button class="btn bo bsm" onclick="clearPhoto('${key}','group')">↩ Replace</button>`:`<div class="scan-preview" style="padding:10px" onclick="document.getElementById('ip-group-${t.spId}').click()"><div style="font-size:20px">📷</div><div style="font-size:11px">Tap to upload</div></div><input type="file" id="ip-group-${t.spId}" accept="image/*" style="display:none" onchange="saveInspPhoto('${key}','group',event)">`}
+          </div>
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="brow">
+      <button class="btn bg" onclick="emailInspectionReport('${j.id}')">📧 Email Report to Office</button>
+      <button class="btn bo" onclick="printInspectionReport('${j.id}')">🖨 Print Report</button>
+      <button class="btn bo" onclick="closeM('m-inspect')">Close</button>
+    </div>`;
+  openM('m-inspect');
+}
+
+function saveInspPhoto(key,type,e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    if(!inspPhotos[key])inspPhotos[key]={};
+    inspPhotos[key][type]=ev.target.result;
+    sv(SK.inspPhotos,inspPhotos);toast('📷 Photo saved');
+    const jobId=key.split('-')[0];openInspect(jobId);buildShip();
+  };reader.readAsDataURL(file);
+}
+
+function clearPhoto(key,type){delete inspPhotos[key][type];sv(SK.inspPhotos,inspPhotos);const jobId=key.split('-')[0];openInspect(jobId);buildShip();}
+
+// ══════════ REJECT PLANTS ══════════
+function openReject(jobId){
+  const j=jobs.find(x=>x.id===jobId);if(!j)return;
+  document.getElementById('reject-body').innerHTML=`
+    <div class="al alr"><span class="ali">🚫</span><div><b>Diseased/defective plants:</b> Do NOT bring back. Dispose on-site (dumpster or approved dump site). Move far away from good plants immediately so crew does not grab them.<br><b>Resalable rejects</b> (wrong size, not defective): return to inventory.</div></div>
+    ${(j.targets||[]).map(t=>{
+      const sp=spById(t.spId);
+      return`<div style="border:1px solid var(--border2);border-radius:var(--r6);padding:12px;margin-bottom:8px">
+        <div style="font-weight:600;margin-bottom:8px">${sp.common} · ${t.qty} × ${t.container}</div>
+        <div class="fr fc3">
+          <div class="f"><label>Qty Rejected</label><input type="number" id="rej-qty-${t.spId}" min="0" placeholder="0"></div>
+          <div class="f"><label>Rejection Type</label>
+            <select id="rej-type-${t.spId}">
+              <option value="disease">Disease / Defect → Dumpster ⛔</option>
+              <option value="resale">Wrong size / Resalable → Back to Inventory</option>
+              <option value="oversize">Oversize for spec → Back to Inventory</option>
+            </select></div>
+          <div class="f"><label>Notes</label><input type="text" id="rej-note-${t.spId}" placeholder="Inspector name, reason..."></div>
+        </div>
+      </div>`;
+    }).join('')}
+    <div class="fr fc2">
+      <div class="f"><label>Date</label><input type="date" id="rej-date" value="${today()}"></div>
+      <div class="f"><label>Return to Nursery (if resalable)</label>
+        <select id="rej-loc"><option value="office">Office</option><option value="pump">Pump House</option><option value="bt">BT Landholdings</option></select>
+      </div>
+    </div>
+    <div class="brow">
+      <button class="btn br" onclick="saveRejects('${jobId}')">💾 Save Rejections</button>
+      <button class="btn bo" onclick="closeM('m-reject')">Cancel</button>
+    </div>`;
+  openM('m-reject');
+}
+
+function saveRejects(jobId){
+  const j=jobs.find(x=>x.id===jobId);if(!j)return;
+  const date=document.getElementById('rej-date').value;
+  const loc=document.getElementById('rej-loc').value;
+  let resalable=0,culled=0;
+  (j.targets||[]).forEach(t=>{
+    const qty=parseInt(document.getElementById('rej-qty-'+t.spId)?.value)||0;if(!qty)return;
+    const type=document.getElementById('rej-type-'+t.spId)?.value;
+    const note=document.getElementById('rej-note-'+t.spId)?.value||'';
+    if(type==='disease'){
+      culled+=qty;toast(`🗑 ${qty} ${spById(t.spId).common} marked for disposal`);
+    } else {
+      stock.push({id:'stk_'+Date.now()+'_'+t.spId,spId:t.spId,container:t.container,qty,
+        location:loc,origin:'job_return',dateAdded:date,notes:`Job return from ${j.name}. ${note}`,jobAlloc:''});
+      resalable+=qty;
+    }
+  });
+  sv(SK.stock,stock);closeM('m-reject');
+  toast(`✅ Saved: ${resalable} back to inventory · ${culled} to dumpster`);
+  buildInv();buildDash();buildShip();
+}
+
+// ══════════ BOL GENERATOR ══════════
+function generateBOL(jobId){
+  const j=jobs.find(x=>x.id===jobId);if(!j)return;
+  const rows=(j.targets||[]).map(t=>{
+    const sp=spById(t.spId);
+    const sources=Object.entries({'office':'Office Nursery','pump':'Pump House','bt':'BT Landholdings'}).map(([k,v])=>{const q=invByLoc(t.spId,k,t.container);return q?`${v}: ${q}`:''}).filter(Boolean).join(' | ');
+    return`<tr><td>${parseInt(t.qty)||0}</td><td>${sp.common}${t.container!=='#1'?' '+t.container:''}</td><td>${sp.sci}</td>
+      <td>${[t.heightSpec,t.stemForm,t.caliperSpec].filter(Boolean).join(' · ')||'Per spec'}</td>
+      <td>${sources||'—'}</td><td></td></tr>`;
+  }).join('');
+  const orWarn=j.state==='OR'?`<div style="background:#fff3cd;border:2px solid #f0ad4e;border-radius:5px;padding:10px;margin:10px 0"><b>⚠️ OREGON SHIPMENT — WSDA Inspection Required</b><br>Contact Sara Welch · swelch@agr.wa.gov · Permit stamp must appear on this document before shipment.</div>`:'';
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>BOL — ${j.name}</title>
+  <style>body{font-family:sans-serif;font-size:11px;padding:20px;max-width:1000px}
+  .logo{font-size:22px;font-weight:700;color:#2E6E18}
+  .hdr{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:12px 0}
+  .field{border:1px solid #ccc;padding:6px 10px;min-height:28px;border-radius:3px}
+  .lbl{font-size:9px;text-transform:uppercase;color:#888;margin-bottom:2px}
+  table{width:100%;border-collapse:collapse;margin-top:16px}
+  th{background:#eee;padding:7px 8px;text-align:left;font-size:9px;text-transform:uppercase;border-bottom:2px solid #ccc}
+  td{padding:7px 8px;border-bottom:1px solid #ddd}tr:nth-child(even) td{background:#f9f9f9}
+  .cert{margin-top:20px;padding:12px;border:1px solid #ccc;border-radius:5px;background:#f9f9f9;font-size:10px}
+  .sig{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+  .sig-line{border-top:1px solid #333;padding-top:5px;margin-top:24px}
+  footer{margin-top:20px;font-size:9px;color:#888;display:flex;justify-content:space-between;border-top:1px solid #eee;padding-top:8px}
+  @media print{body{padding:0}}</style></head><body>
+  <div style="display:flex;align-items:center;gap:16px;border-bottom:3px solid #2E6E18;padding-bottom:10px">
+    <div class="logo">Bella Terra LLC</div>
+    <div style="font-size:10px;color:#666">1342 Dike Road, Woodland, WA 98674 · 360-225-1125 · Team@1BellaTerra.com</div>
+    <div style="margin-left:auto;font-size:13px;font-weight:700">BILL OF LADING / PURCHASE ORDER</div>
+    <div style="font-size:11px;color:#666">Date: ${new Date().toLocaleDateString()}</div>
+  </div>
+  ${orWarn}
+  <div class="hdr">
+    <div>
+      <div class="lbl">Job / Customer Name</div><div class="field">${j.name}</div>
+      <div class="lbl" style="margin-top:6px">Prime Contractor</div><div class="field">${j.client||''}</div>
+      <div class="lbl" style="margin-top:6px">Location / Site</div><div class="field">${j.location||''}</div>
+    </div>
+    <div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><div class="lbl">Flag Color</div><div class="field" style="display:flex;align-items:center;gap:6px"><span style="background:${j.color};width:20px;height:20px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.2)"></span>${j.colorName}</div></div>
+        <div><div class="lbl">Outplant Date</div><div class="field">${j.outplantDate||''}</div></div>
+      </div>
+      <div class="lbl" style="margin-top:6px">Contact Person</div><div class="field"></div>
+      <div class="lbl" style="margin-top:6px">Cell #</div><div class="field"></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+    <div><div class="lbl">Delivery</div><div class="field"></div></div>
+    <div><div class="lbl">Pick Up</div><div class="field"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:10px;background:#f5f5f5;padding:6px 8px;border-radius:3px">
+    <b>Substitutions:</b>
+    <span>Yes ☐</span><span>No ☐</span>
+    <span style="margin-left:16px"><b>Type codes:</b> T=Tree · C=4"Cube · P=Plug · LS=Live Stake · BB=Balled&amp;Burlap · BR=Bare Root · Gallon: 1,2,3,5,7</span>
+  </div>
+  <table><thead><tr><th>Qty</th><th>Common Name / Size</th><th>Botanical Name</th><th>Specifications</th><th>Source Nursery</th><th>Inspector Notes</th></tr></thead>
+  <tbody>${rows}</tbody></table>
+  <div class="cert"><b>Certification (8-02.5 — Payment Stipulations)</b><br>
+  Bella Terra LLC hereby certifies that the aforementioned plants have been propagated and are currently being cultivated under nursery conditions.
+  ${j.state==='OR'?'<br><br><b>WSDA Shipping Permit #: _______________</b> &nbsp;&nbsp; Permit stamp must be affixed below or attached to this document.':''}</div>
+  <div class="sig">
+    <div><div class="sig-line">Shipped By / Signature &amp; Date</div></div>
+    <div><div class="sig-line">Received By / Signature &amp; Date</div></div>
+  </div>
+  <footer><span>Bella Terra Landscaping LLC · 1342 Dike Rd, Woodland WA 98674 · 360-225-1125 · 1BellaTerra.com</span><span>Printed: ${new Date().toLocaleDateString()}</span></footer>
+  <script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+// ══════════ RFQ GENERATOR ══════════
+function generateRFQ(jobId,spIdFilter){
+  const j=jobs.find(x=>x.id===jobId);if(!j)return;
+  const shortfalls=(j.targets||[]).filter(t=>{
+    if(spIdFilter&&t.spId!==spIdFilter)return false;
+    return invTotal(t.spId,t.container)<(parseInt(t.qty)||0);
+  });
+  if(!shortfalls.length){toast('No shortfalls found for this job');return;}
+  const rows=shortfalls.map(t=>{
+    const sp=spById(t.spId);const have=invTotal(t.spId,t.container);const need=(parseInt(t.qty)||0)-have;
+    return`<tr><td>${need}</td><td>${sp.common} ${t.container}</td><td>${sp.sci}</td>
+      <td>${[t.heightSpec,t.stemForm,t.caliperSpec].filter(Boolean).join(' · ')||'Per project spec'}</td><td></td><td></td></tr>`;
+  }).join('');
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>RFQ — ${j.name}</title>
+  <style>body{font-family:sans-serif;font-size:11px;padding:20px;max-width:1000px}
+  .logo{font-size:22px;font-weight:700;color:#2E6E18}
+  table{width:100%;border-collapse:collapse;margin-top:16px}
+  th{background:#eee;padding:7px 8px;text-align:left;font-size:9px;text-transform:uppercase;border-bottom:2px solid #ccc}
+  td{padding:7px 8px;border-bottom:1px solid #ddd}
+  .field{border:1px solid #ccc;padding:6px 10px;min-height:28px;border-radius:3px;margin-bottom:6px}
+  .lbl{font-size:9px;text-transform:uppercase;color:#888;margin-bottom:2px}
+  footer{margin-top:20px;font-size:9px;color:#888;border-top:1px solid #eee;padding-top:8px;display:flex;justify-content:space-between}
+  @media print{body{padding:0}}</style></head><body>
+  <div style="display:flex;align-items:center;gap:16px;border-bottom:3px solid #2E6E18;padding-bottom:10px">
+    <div class="logo">Bella Terra LLC</div>
+    <div style="font-size:10px;color:#666">1342 Dike Road, Woodland, WA 98674 · 360-225-1125 · Team@1BellaTerra.com</div>
+    <div style="margin-left:auto;font-size:13px;font-weight:700">REQUEST FOR QUOTE — PLANT MATERIAL</div>
+    <div style="font-size:11px;color:#666">Date: ${new Date().toLocaleDateString()}</div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0">
+    <div>
+      <div class="lbl">Vendor / Nursery</div><div class="field"></div>
+      <div class="lbl">Contact</div><div class="field"></div>
+      <div class="lbl">Phone / Email</div><div class="field"></div>
+    </div>
+    <div>
+      <div class="lbl">For Job</div><div class="field">${j.name} — ${j.client||''}</div>
+      <div class="lbl">Required By</div><div class="field">${j.outplantDate||''}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div><div class="lbl">Delivery</div><div class="field"></div></div>
+        <div><div class="lbl">Pick Up</div><div class="field"></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-bottom:8px;font-size:10px;background:#fff3cd;border:1px solid #f0ad4e;padding:6px 8px;border-radius:3px">
+    <b>Substitutions:</b> Yes ☐ No ☐ &nbsp;&nbsp; Please quote exact species and sizes listed. Contact us before substituting.
+  </div>
+  <table><thead><tr><th>Qty Needed</th><th>Common Name / Size</th><th>Botanical Name</th><th>Specifications Required</th><th>Unit Price</th><th>Total</th></tr></thead>
+  <tbody>${rows}
+  <tr style="background:#f5f5f5;font-weight:700"><td colspan="5" style="text-align:right">TOTAL QUOTE:</td><td></td></tr>
+  </tbody></table>
+  <div style="margin-top:16px;font-size:10px;color:#666">Please return completed quote to: Team@1BellaTerra.com · Please include availability dates and any substitution options.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+    <div style="border-top:1px solid #333;padding-top:5px;margin-top:24px">Quoted By / Vendor Signature &amp; Date</div>
+    <div style="border-top:1px solid #333;padding-top:5px;margin-top:24px">Accepted By — Bella Terra LLC</div>
+  </div>
+  <footer><span>Bella Terra Landscaping LLC · 1342 Dike Rd, Woodland WA 98674 · 360-225-1125 · 1BellaTerra.com</span><span>Printed: ${new Date().toLocaleDateString()}</span></footer>
+  <script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+// ══════════ DOCS TAB ══════════
+function buildDocs(){
+  const el=document.getElementById('docs-wrap');
+  if(!jobs.length){el.innerHTML='<div class="card"><div class="cb" style="color:var(--ink3)">No jobs yet.</div></div>';return;}
+  el.innerHTML=jobs.map(j=>{
+    const shortfalls=(j.targets||[]).filter(t=>invTotal(t.spId,t.container)<(parseInt(t.qty)||0));
+    return`<div class="card">
+      <div class="ch"><div class="chl">
+        <span style="background:${j.color};width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.2);flex-shrink:0"></span>
+        <div><div class="ctitle">${j.name}</div><div class="csub">${j.client||''} · ${j.outplantDate||''} ${j.state==='OR'?'· <b style="color:var(--amber2)">Oregon — WSDA needed</b>':''}</div></div>
+      </div></div>
+      <div class="cb">
+        <div class="brow">
+          <button class="btn bg" onclick="generateBOL('${j.id}')">📄 Print BOL</button>
+          ${shortfalls.length?`<button class="btn ba" onclick="generateRFQ('${j.id}',null)">📋 RFQ for ${shortfalls.length} shortfall${shortfalls.length>1?'s':''}</button>`:'<span class="chip cg">✓ Fully stocked</span>'}
+        </div>
+        ${j.state==='OR'?`<div class="flag-or" style="margin-top:10px">
+          <div style="font-weight:700;color:var(--amber2)">⚠️ Oregon Shipment Protocol</div>
+          <div style="font-size:12px;margin-top:4px">1. Call Sara Welch at WSDA: <a href="mailto:swelch@agr.wa.gov">swelch@agr.wa.gov</a> (~2 week lead)<br>2. Schedule inspection at your nursery location<br>3. Inspector will stamp permit on BOL<br>4. Record permit # on BOL before shipment</div>
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+            <span style="font-size:12px;font-weight:600">WSDA Permit #:</span>
+            <input type="text" placeholder="Enter permit # after inspection" style="flex:1;font-size:12px;padding:4px 8px;border:1px solid var(--amber3);border-radius:3px;background:var(--amber-lt)">
+          </div>
+        </div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════ INSPECTION REPORT ══════════
+function buildInspectionReportHTML(jobId, forPrint=false) {
+  const j = jobs.find(x=>x.id===jobId); if(!j) return '';
+  const reportDate = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const photoRows = (j.targets||[]).map(t => {
+    const sp = spById(t.spId);
+    const key = j.id+'-'+t.spId;
+    const photos = inspPhotos[key]||{};
+    const hasClose = photos.close && photos.close !== '_placeholder_';
+    const hasGroup = photos.group && photos.group !== '_placeholder_';
+    return `<div style="border:1px solid #ddd;border-radius:6px;padding:14px;margin-bottom:14px;break-inside:avoid">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <span style="background:${j.color};width:16px;height:16px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.2)"></span>
+        <div><div style="font-weight:700;font-size:13px">${sp.common} <em style="font-size:11px;color:#666;font-weight:400">${sp.sci}</em></div>
+          <div style="font-size:11px;color:#888">${t.qty} × ${t.container}${t.heightSpec?' · '+t.heightSpec:''}${t.stemForm?' · '+t.stemForm:''}</div></div>
+        <div style="margin-left:auto;font-size:11px">${hasClose&&hasGroup?'<span style="color:green;font-weight:600">✓ Both photos</span>':hasClose||hasGroup?'<span style="color:orange">⚠️ 1 of 2 photos</span>':'<span style="color:red">No photos</span>'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div style="font-size:9px;text-transform:uppercase;color:#888;margin-bottom:4px;font-family:monospace">Close-up · tag visible</div>
+          ${hasClose?`<img src="${photos.close}" style="width:100%;height:160px;object-fit:cover;border-radius:4px;border:1px solid #ddd">`:'<div style="height:160px;background:#f5f5f5;border-radius:4px;border:2px dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:11px;color:#999">No photo uploaded</div>'}
+        </div>
+        <div>
+          <div style="font-size:9px;text-transform:uppercase;color:#888;margin-bottom:4px;font-family:monospace">Group staging shot</div>
+          ${hasGroup?`<img src="${photos.group}" style="width:100%;height:160px;object-fit:cover;border-radius:4px;border:1px solid #ddd">`:'<div style="height:160px;background:#f5f5f5;border-radius:4px;border:2px dashed #ccc;display:flex;align-items:center;justify-content:center;font-size:11px;color:#999">No photo uploaded</div>'}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  return `<div style="font-family:sans-serif;font-size:12px;max-width:900px;margin:0 auto;padding:${forPrint?'0':'20px'}">
+    <div style="border-bottom:3px solid #2E6E18;padding-bottom:12px;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div>
+          <div style="font-size:20px;font-weight:700;color:#2E6E18">Bella Terra LLC — Plant Inspection Report</div>
+          <div style="font-size:11px;color:#666">1342 Dike Road, Woodland, WA 98674 · 360-225-1125 · Team@1BellaTerra.com</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:#666">Report Date</div>
+          <div style="font-weight:600">${reportDate}</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;padding:12px;background:#f9f9f9;border-radius:6px">
+      <div><div style="font-size:9px;text-transform:uppercase;color:#888">Job</div><div style="font-weight:700">${j.name}</div></div>
+      <div><div style="font-size:9px;text-transform:uppercase;color:#888">Client</div><div>${j.client||'—'}</div></div>
+      <div><div style="font-size:9px;text-transform:uppercase;color:#888">Location</div><div>${j.location||'—'}</div></div>
+      <div><div style="font-size:9px;text-transform:uppercase;color:#888">Flag Color</div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="background:${j.color};width:16px;height:16px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.2)"></span><b>${j.colorName}</b></div></div>
+    </div>
+    <div style="margin-bottom:16px;padding:10px;background:#fff3cd;border:1px solid #f0ad4e;border-radius:5px;font-size:11px">
+      <b>Purpose:</b> These photos document plant material delivered to the staging area for inspection. One close-up photo (with readable tag) and one group staging photo per species. Photos are on file with Bella Terra LLC and may be shared with project engineers upon request.
+    </div>
+    ${photoRows}
+    <div style="margin-top:20px;padding:12px;border:1px solid #ddd;border-radius:5px;background:#f9f9f9">
+      <div style="font-weight:600;margin-bottom:8px">Inspector Certification</div>
+      <div style="font-size:11px;color:#555;margin-bottom:16px">Plant material photographed and documented at job site staging area by:</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="border-top:1px solid #333;padding-top:4px;margin-top:24px">Inspector Name &amp; Signature</div>
+        <div style="border-top:1px solid #333;padding-top:4px;margin-top:24px">Date &amp; Time</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:9px;color:#888;text-align:center">Bella Terra Landscaping LLC · 1342 Dike Rd, Woodland WA 98674 · 360-225-1125 · 1BellaTerra.com</div>
+  </div>`;
+}
+
+function emailInspectionReport(jobId) {
+  const j = jobs.find(x=>x.id===jobId); if(!j) return;
+  const sp = (j.targets||[]).map(t=>spById(t.spId).common).join(', ');
+  const total = (j.targets||[]).reduce((s,t)=>s+(parseInt(t.qty)||0),0);
+  const photoCount = (j.targets||[]).filter(t=>{
+    const p=inspPhotos[j.id+'-'+t.spId]||{};
+    return (p.close&&p.close!=='_placeholder_')||(p.group&&p.group!=='_placeholder_');
+  }).length;
+  const subject = encodeURIComponent(`Plant Inspection Report — ${j.name} — ${new Date().toLocaleDateString()}`);
+  const body = encodeURIComponent(
+    `Inspection Report: ${j.name}\n` +
+    `Date: ${new Date().toLocaleDateString()}\n` +
+    `Client: ${j.client||'—'}\n` +
+    `Location: ${j.location||'—'}\n` +
+    `Flag: ${j.colorName}\n\n` +
+    `Species documented (${(j.targets||[]).length} species · ${total.toLocaleString()} plants):\n${sp}\n\n` +
+    `Photo documentation: ${photoCount} of ${(j.targets||[]).length} species have photos uploaded.\n\n` +
+    `Note: Full photo report with images must be generated via the nursery app (Print Report) and attached separately, as email cannot embed photos directly.\n\n` +
+    `Generated by Bella Terra Nursery App · ${new Date().toLocaleString()}`
+  );
+  window.location.href = `mailto:Rena@1BellaTerra.com?cc=Team@1BellaTerra.com&subject=${subject}&body=${body}`;
+  toast('📧 Opening email client...');
+}
+
+function printInspectionReport(jobId) {
+  const html = buildInspectionReportHTML(jobId, true);
+  const w = window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>Inspection Report</title>
+    <style>body{margin:20px;font-family:sans-serif}@media print{body{margin:0}}</style>
+    </head><body>${html}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+// ══════════ UTILS ══════════
+function populateJobSelects(){
+  const opts='<option value="">— Not pre-allocated —</option>'+jobs.filter(j=>!j.complete).map(j=>`<option value="${j.id}">${j.name}</option>`).join('');
+  ['as-job','rv-job'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=opts;});
+}
+
+// ══════════ POTTING QUEUE STORAGE ══════════
+// pottingQueue: array of {id, vendor, invoiceNum, invoiceDate, jobAlloc, receivedDate, status, items:[{spId,qtyReceived,qtyPotted,targetContainer,pruneFlag,caliperFlag,notes}]}
+const SK_POT = 'bt4_pq';
+let pottingQueue = ld(SK_POT)||[];
+function svPQ(){sv(SK_POT,pottingQueue);}
+
+// ══════════ PRUNING FLAG LOGIC ══════════
+// Check if a species needs multi-stem/multi-cane for any job it's allocated to
+function getPruneFlag(spId, jobId) {
+  const checkJobs = jobId ? [jobs.find(j=>j.id===jobId)].filter(Boolean) : jobs;
+  for(const j of checkJobs) {
+    const t = (j.targets||[]).find(t=>t.spId===spId);
+    if(t && t.stemForm && (t.stemForm.toLowerCase().includes('multi') || t.stemForm.toLowerCase().includes('cane'))) {
+      return {flag:true, job:j.name, spec:t.stemForm};
+    }
+  }
+  return {flag:false};
+}
+
+// ══════════ CALIPER FLAG LOGIC ══════════
+function getCaliperFlag(spId, jobId) {
+  const checkJobs = jobId ? [jobs.find(j=>j.id===jobId)].filter(Boolean) : jobs;
+  for(const j of checkJobs) {
+    const t = (j.targets||[]).find(t=>t.spId===spId);
+    if(t && t.caliperSpec && t.caliperSpec !== '—' && t.caliperSpec !== '') {
+      return {flag:true, job:j.name, spec:t.caliperSpec};
+    }
+  }
+  return {flag:false};
+}
+
+// ══════════ DETERMINE TARGET CONTAINER ══════════
+// Trees with caliper spec → check at pot-up → #1 or #5
+// Others → #1 default
+function getTargetContainer(spId, jobId) {
+  const cf = getCaliperFlag(spId, jobId);
+  if(cf.flag) return 'check'; // needs caliper measurement at pot-up
+  return '#1';
+}
+
+// ══════════ POTTING QUEUE BUILDER ══════════
+function buildPottingQueue() {
+  const el = document.getElementById('pot-queue-wrap'); if(!el) return;
+  // Update badge
+  const pending = pottingQueue.filter(o=>o.status!=='complete');
+  const badge = document.getElementById('badge-pot');
+  if(badge){badge.style.display=pending.length?'block':'none';badge.textContent=pending.length;}
+
+  if(!pottingQueue.length) {
+    el.innerHTML='<div class="card"><div class="cb" style="color:var(--ink3)">No orders in potting queue. Scan an invoice to add.</div></div>';
+    return;
+  }
+  el.innerHTML = pottingQueue.map(order => {
+    const totalIn = (order.items||[]).reduce((s,i)=>s+(parseInt(i.qtyReceived)||0),0);
+    const totalPotted = (order.items||[]).reduce((s,i)=>s+(parseInt(i.qtyPotted)||0),0);
+    const remaining = totalIn - totalPotted;
+    const pct = totalIn ? Math.round(totalPotted/totalIn*100) : 0;
+    const statusColor = order.status==='complete'?'var(--green2)':order.status==='in_progress'?'var(--amber2)':'var(--ink3)';
+    const statusLabel = {heeled:'🌱 Heeled In',in_progress:'🪴 Potting In Progress',complete:'✅ Complete'}[order.status]||order.status;
+    const job = jobs.find(j=>j.id===order.jobAlloc);
+    return `<div class="card">
+      <div class="ch">
+        <div class="chl">
+          <div><div class="ctitle">${order.vendor} <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:400;color:var(--ink3)">Invoice ${order.invoiceNum}</span></div>
+            <div class="csub">${order.invoiceDate||''} · ${totalIn.toLocaleString()} plants received · ${remaining.toLocaleString()} left to pot
+              ${job?`· <span style="background:${job.color};color:#fff;padding:1px 6px;border-radius:3px;font-size:10px">${job.name}</span>`:''}
+            </div></div>
+        </div>
+        <span style="color:${statusColor};font-size:12px;font-weight:600">${statusLabel}</span>
+      </div>
+      <div class="cb" style="padding:8px 0">
+        <div style="padding:0 14px 8px">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);margin-bottom:4px">
+            <span>Potted: ${totalPotted.toLocaleString()} / ${totalIn.toLocaleString()}</span><span>${pct}%</span>
+          </div>
+          <div class="pb"><div class="pbf" style="width:${pct}%;background:${pct===100?'var(--green2)':'var(--amber3)'}"></div></div>
+        </div>
+        ${(order.items||[]).map(item => {
+          const sp = spById(item.spId);
+          const itemRemaining = (parseInt(item.qtyReceived)||0) - (parseInt(item.qtyPotted)||0);
+          const done = itemRemaining <= 0;
+          const pruneF = item.pruneFlag;
+          const calF = item.caliperFlag;
+          return `<div style="display:flex;align-items:center;gap:10px;padding:8px 14px;border-top:1px solid var(--border2);${done?'opacity:.5':''}">
+            <div style="flex:1;min-width:0">
+              <div style="font-weight:600;font-size:13px">${sp.common} <span style="font-style:italic;font-size:10px;color:var(--ink3);font-weight:400">${sp.sci}</span></div>
+              <div style="font-size:11px;color:var(--ink3);display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">
+                <span>Rcvd: ${(parseInt(item.qtyReceived)||0).toLocaleString()}</span>
+                <span>Potted: ${(parseInt(item.qtyPotted)||0).toLocaleString()}</span>
+                <span style="font-weight:600;color:${done?'var(--green2)':'var(--amber2)'}">Left: ${itemRemaining.toLocaleString()}</span>
+                <span class="chip cb2">${item.targetContainer==='check'?'📏 Check caliper':item.targetContainer}</span>
+                ${waterSunBadge(sp)}
+              </div>
+              <div style="margin-top:3px;display:flex;gap:5px;flex-wrap:wrap">
+                ${pruneF?`<span class="chip ca">✂️ Prune for multi-stem (${pruneF.spec})</span>`:''}
+                ${calF?`<span class="chip cb2">📏 Check caliper — ${calF.spec} min → sort #1 vs #5</span>`:''}
+              </div>
+            </div>
+            ${done?'<span class="chip cg">✓ Done</span>':`<button class="btn bg bsm" onclick="openPotUp('${order.id}','${item.spId}')">🪴 Pot Up</button>`}
+          </div>`;
+        }).join('')}
+        ${order.status!=='complete'&&(totalIn===totalPotted)?`<div style="padding:8px 14px"><button class="btn bg" onclick="closeOrder('${order.id}')">✅ Mark Order Complete</button></div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════ OPEN POT-UP MODAL ══════════
+function openPotUp(orderId, spId) {
+  const order = pottingQueue.find(o=>o.id===orderId); if(!order) return;
+  const item = (order.items||[]).find(i=>i.spId===spId); if(!item) return;
+  const sp = spById(spId);
+  const remaining = (parseInt(item.qtyReceived)||0) - (parseInt(item.qtyPotted)||0);
+  const job = jobs.find(j=>j.id===order.jobAlloc);
+  document.getElementById('potup-title').textContent = '🪴 Pot Up — '+sp.common;
+  document.getElementById('potup-body').innerHTML = `
+    <div style="background:var(--paper);border-radius:var(--r6);padding:10px 12px;margin-bottom:12px;font-size:13px">
+      <div style="font-weight:600;font-size:15px">${sp.common}</div>
+      <div style="font-style:italic;color:var(--ink3);font-size:12px">${sp.sci}</div>
+      <div style="margin-top:4px;display:flex;gap:8px;flex-wrap:wrap">
+        <span>Remaining to pot: <b>${remaining.toLocaleString()}</b></span>
+        ${job?`<span style="background:${job.color};color:#fff;padding:1px 6px;border-radius:3px;font-size:11px">${job.name}</span>`:''}
+        ${waterSunBadge(sp)}
+      </div>
+    </div>
+    ${item.pruneFlag?`<div style="background:var(--amber-lt);border:2px solid var(--amber3);border-radius:var(--r6);padding:10px 12px;margin-bottom:10px">
+      <div style="font-weight:700;color:var(--amber2)">✂️ PRUNING REQUIRED — ${item.pruneFlag.spec}</div>
+      <div style="font-size:12px;color:var(--amber);margin-top:4px">This species arrives as single-stem bare root. <b>${job?job.name:''}</b> requires ${item.pruneFlag.spec}. At pot-up, pinch or prune the apical tip to encourage branching. Do this at potting time — not later. Cuts should be clean above a node.</div>
+    </div>`:''}
+    ${item.caliperFlag?`<div style="background:var(--blue-lt);border:2px solid var(--blue3);border-radius:var(--r6);padding:10px 12px;margin-bottom:10px">
+      <div style="font-weight:700;color:var(--blue2)">📏 CALIPER SORT REQUIRED — ${item.caliperFlag.spec} minimum</div>
+      <div style="font-size:12px;color:var(--blue);margin-top:4px">Measure each bare root. <b>${item.caliperFlag.spec}+ caliper → pot into #5</b>. Undersized → pot into #1 to grow on. Enter separately below by container size.</div>
+    </div>`:''}
+    <div class="fr fc2">
+      <div class="f"><label>Qty Potting Today</label><input type="number" id="pu-qty" min="1" max="${remaining}" placeholder="0" value="${remaining}" style="font-size:18px;font-weight:600;text-align:center"></div>
+      <div class="f"><label>Container Size</label>
+        <select id="pu-cont">
+          ${item.targetContainer==='check'?
+            '<option value="#1">#1 gal (undersized)</option><option value="#5">#5 gal (1/2"+ caliper)</option>':
+            `<option value="${item.targetContainer}">${item.targetContainer}</option><option value="#1">#1 gal</option><option value="#2">#2 gal</option><option value="#5">#5 gal</option>`}
+        </select>
+      </div>
+    </div>
+    <div class="f" style="margin-bottom:10px">
+      <label>Nursery Location</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+        <label style="display:flex;align-items:center;gap:8px;padding:12px;border:2px solid var(--border);border-radius:var(--r6);cursor:pointer;background:var(--paper)" id="loc-office-lbl">
+          <input type="radio" name="pu-loc" value="office" id="pu-loc-office" onchange="highlightLocCard()" style="accent-color:var(--green2)">
+          <div><div style="font-weight:600;font-size:13px">🏢 Office Nursery</div><div style="font-size:11px;color:var(--ink3)">1342 Dike Road</div></div>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;padding:12px;border:2px solid var(--border);border-radius:var(--r6);cursor:pointer;background:var(--paper)" id="loc-pump-lbl">
+          <input type="radio" name="pu-loc" value="pump" id="pu-loc-pump" onchange="highlightLocCard()" style="accent-color:var(--green2)">
+          <div><div style="font-weight:600;font-size:13px">💧 Pump House</div><div style="font-size:11px;color:var(--ink3)">Pump House Nursery</div></div>
+        </label>
+      </div>
+    </div>
+    <div class="f" style="margin-bottom:12px"><label>Notes (row, batch, condition)</label><input type="text" id="pu-notes" placeholder="e.g. Row 3, good roots, pruned for branching..."></div>
+    <div class="brow">
+      <button class="btn bg" style="flex:1;justify-content:center;padding:12px" onclick="savePotUp('${orderId}','${spId}')">💾 Save Pot-Up</button>
+      <button class="btn bo" onclick="closeM('m-potup')">Cancel</button>
+    </div>`;
+  openM('m-potup');
+}
+
+function highlightLocCard(){
+  ['office','pump'].forEach(l=>{
+    const lbl=document.getElementById('loc-'+l+'-lbl');
+    const inp=document.getElementById('pu-loc-'+l);
+    if(lbl&&inp)lbl.style.borderColor=inp.checked?'var(--green2)':'var(--border)';
+  });
+}
+
+function savePotUp(orderId, spId) {
+  const order = pottingQueue.find(o=>o.id===orderId); if(!order) return;
+  const item = (order.items||[]).find(i=>i.spId===spId); if(!item) return;
+  const qty = parseInt(document.getElementById('pu-qty').value)||0;
+  if(qty<=0){toast('Enter qty > 0');return;}
+  const cont = document.getElementById('pu-cont').value;
+  const locEl = document.querySelector('input[name="pu-loc"]:checked');
+  if(!locEl){toast('Select a nursery location');return;}
+  const loc = locEl.value;
+  const notes = document.getElementById('pu-notes').value;
+  // Add to inventory
+  stock.push({
+    id:'stk_'+Date.now(),spId,container:cont,qty,location:loc,
+    origin:'bare_root_purchase',dateAdded:today(),
+    notes:`Potted from ${order.vendor} Invoice ${order.invoiceNum}. ${notes}`,
+    jobAlloc:order.jobAlloc
+  });
+  sv(SK.stock,stock);
+  // Update potting queue
+  item.qtyPotted = (parseInt(item.qtyPotted)||0) + qty;
+  // Log count history
+  countHistory.unshift({id:'ch_'+Date.now(),spId,location:loc,container:cont,qty,date:today(),who:'Pot-up log',notes:`Potted from ${order.vendor} Invoice ${order.invoiceNum}`});
+  sv(SK.countHistory,countHistory.slice(0,200));
+  // Update order status
+  const allDone = (order.items||[]).every(i=>(parseInt(i.qtyPotted)||0)>=(parseInt(i.qtyReceived)||0));
+  const anyDone = (order.items||[]).some(i=>(parseInt(i.qtyPotted)||0)>0);
+  order.status = allDone?'complete':anyDone?'in_progress':'heeled';
+  svPQ();
+  closeM('m-potup');
+  toast(`✅ ${qty} ${spById(spId).common} potted → ${loc==='office'?'Office':'Pump House'}`);
+  buildPottingQueue();buildInv();buildDash();
+}
+
+function closeOrder(orderId){
+  const o=pottingQueue.find(x=>x.id===orderId);if(o){o.status='complete';svPQ();buildPottingQueue();toast('✅ Order complete');}
+}
+
+// ══════════ INVOICE SCANNER ══════════
+let invoiceScanResults = [];
+async function handleInvoiceUpload(e) {
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async(ev) => {
+    const b64 = ev.target.result.split(',')[1];
+    const mime = file.type;
+    const prev = document.getElementById('inv-preview-content');
+    if(mime.startsWith('image/')) prev.innerHTML=`<img src="${ev.target.result}" style="max-height:180px;object-fit:contain;border-radius:4px">`;
+    else prev.innerHTML=`<div style="font-size:32px">📄</div><div style="font-size:12px;color:var(--ink3)">${file.name}</div>`;
+    document.getElementById('inv-reading').style.display='block';
+    document.getElementById('inv-results').style.display='none';
+    document.getElementById('inv-actions').style.display='none';
+    try {
+      const msgContent = [{type:'text',text:'This is a vendor nursery invoice. Extract every line item plant entry. Return ONLY a JSON array, no markdown. Each object: {"common": "common name", "scientific": "scientific name", "form": "BR/plug/4in/#1 etc", "qty": number, "unitPrice": number}. Use the abbreviations: BR=bare root, P=plug. Skip any non-plant line items.'}];
+      if(mime.startsWith('image/')) msgContent.unshift({type:'image',source:{type:'base64',media_type:mime,data:b64}});
+      else msgContent.unshift({type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}});
+      const resp = await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:msgContent}]})
+      });
+      const data = await resp.json();
+      const raw = data.content?.filter(c=>c.type==='text').map(c=>c.text).join('');
+      let parsed = [];
+      try{parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch{parsed=[];}
+      invoiceScanResults = parsed;
+      renderInvoiceResults(parsed);
+    } catch(err) {
+      document.getElementById('inv-results').innerHTML=`<div class="al alr"><span class="ali">⚠️</span><div>Could not read invoice. Try a clearer photo. (${err.message})</div></div>`;
+      document.getElementById('inv-results').style.display='block';
+    }
+    document.getElementById('inv-reading').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderInvoiceResults(parsed) {
+  const el = document.getElementById('inv-results');
+  const actions = document.getElementById('inv-actions');
+  if(!parsed.length){el.innerHTML='<div class="al ala"><span class="ali">⚠️</span><div>No plant entries found.</div></div>';el.style.display='block';return;}
+  const jobId = document.getElementById('inv-job').value;
+  let html = `<div style="font-weight:600;margin-bottom:8px">Claude read ${parsed.length} line items — confirm:</div>
+    <table class="tbl"><thead><tr><th>#</th><th>Common Name</th><th>Matched Species</th><th>Form → Pot Into</th><th>Qty</th><th>Prune?</th><th>Caliper?</th></tr></thead><tbody>`;
+  parsed.forEach((row,i) => {
+    const matches = fuzzyMatch(row.common||'', masterSpecies);
+    const best = matches[0];
+    const targetCont = best ? getTargetContainer(best.sp.id, jobId) : '#1';
+    const pruneF = best ? getPruneFlag(best.sp.id, jobId) : {flag:false};
+    const calF = best ? getCaliperFlag(best.sp.id, jobId) : {flag:false};
+    html += `<tr>
+      <td style="font-family:'DM Mono',monospace;color:var(--ink3)">${i+1}</td>
+      <td style="font-size:12px"><b>${row.common||'?'}</b><br><em style="font-size:10px;color:var(--ink3)">${row.scientific||''}</em></td>
+      <td>${best?`<select id="inv-sp-${i}" style="font-size:11px;padding:3px;border:1px solid var(--border);border-radius:3px;background:var(--paper)">
+        ${masterSpecies.map(s=>`<option value="${s.id}" ${s.id===best.sp.id?'selected':''}>${s.common}</option>`).join('')}
+      </select>`:'<span style="color:var(--red2);font-size:11px">No match</span>'}</td>
+      <td style="font-size:11px"><span class="chip ca">${row.form||'BR'}</span> → <select id="inv-cont-${i}" style="font-size:11px;padding:3px;border:1px solid var(--border);border-radius:3px;background:var(--paper)">
+        ${targetCont==='check'?
+          '<option value="check">📏 Check caliper</option><option value="#1">#1 gal</option><option value="#5">#5 gal</option>':
+          `<option value="${targetCont}">${targetCont}</option><option value="#1">#1 gal</option><option value="#2">#2 gal</option><option value="#5">#5 gal</option>`}
+      </select></td>
+      <td><input type="number" id="inv-qty-${i}" value="${row.qty||0}" min="0" style="width:65px;font-size:12px;padding:3px 5px;border:1px solid var(--border);border-radius:3px"></td>
+      <td>${pruneF.flag?`<span class="chip ca" style="font-size:9px">✂️ ${pruneF.spec}</span>`:'<span style="font-size:10px;color:var(--ink3)">—</span>'}</td>
+      <td>${calF.flag?`<span class="chip cb2" style="font-size:9px">📏 ${calF.spec}</span>`:'<span style="font-size:10px;color:var(--ink3)">—</span>'}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  el.innerHTML = html; el.style.display='block'; actions.style.display='flex';
+}
+
+function confirmInvoiceResults() {
+  const vendor = document.getElementById('inv-vendor').value||'Unknown Vendor';
+  const invNum = document.getElementById('inv-invnum').value||'—';
+  const invDate = document.getElementById('inv-invdate').value||today();
+  const jobId = document.getElementById('inv-job').value;
+  const items = [];
+  invoiceScanResults.forEach((row,i) => {
+    const spId = document.getElementById('inv-sp-'+i)?.value;
+    const qty = parseInt(document.getElementById('inv-qty-'+i)?.value)||0;
+    const cont = document.getElementById('inv-cont-'+i)?.value||'#1';
+    if(!spId||!qty) return;
+    const pruneF = getPruneFlag(spId, jobId);
+    const calF = getCaliperFlag(spId, jobId);
+    items.push({spId, qtyReceived:qty, qtyPotted:0, targetContainer:cont,
+      pruneFlag:pruneF.flag?pruneF:null, caliperFlag:calF.flag?calF:null, notes:''});
+  });
+  if(!items.length){toast('No valid items to add');return;}
+  const order = {id:'pq_'+Date.now(), vendor, invoiceNum:invNum, invoiceDate:invDate,
+    jobAlloc:jobId, receivedDate:today(), status:'heeled', items};
+  pottingQueue.unshift(order);
+  svPQ();
+  closeM('m-invoice');
+  resetInvoiceScan();
+  toast(`✅ ${items.length} species added to Potting Queue`);
+  nav('pot');
+}
+
+function resetInvoiceScan() {
+  invoiceScanResults=[];
+  document.getElementById('inv-results').style.display='none';
+  document.getElementById('inv-actions').style.display='none';
+  document.getElementById('inv-preview-content').innerHTML='<div style="font-size:32px;margin-bottom:8px">📷</div><div style="font-weight:600;color:var(--ink2)">Tap to upload invoice photo or PDF</div><div style="font-size:11px;color:var(--ink3);margin-top:4px">Photo, scan, or PDF of vendor invoice</div>';
+  const f=document.getElementById('inv-file');if(f)f.value='';
+}
+
+// ══════════ SEASON LABEL UTILS ══════════
+function seasonFromDate(dateStr) {
+  if(!dateStr) return '';
+  const m = new Date(dateStr).getMonth(); // 0=Jan
+  if(m>=2&&m<=4) return 'Spring '+new Date(dateStr).getFullYear();
+  if(m>=5&&m<=7) return 'Summer '+new Date(dateStr).getFullYear();
+  if(m>=8&&m<=10) return 'Fall '+new Date(dateStr).getFullYear();
+  return 'Winter '+new Date(dateStr).getFullYear();
+}
+function seasonOptions(current) {
+  const years=[2024,2025,2026,2027];
+  const seasons=['Spring','Summer','Fall','Winter'];
+  let opts='';
+  years.forEach(y=>seasons.forEach(s=>{
+    const val=s+' '+y;
+    opts+=`<option value="${val}" ${val===current?'selected':''}>${val}</option>`;
+  }));
+  return opts;
+}
+
+// ══════════ HEIGHT SCALES ══════════
+const HEIGHT_SHRUB=['Under 3"','3"–6"','6"–12"','12"–18"','18"–24"','24"–36"','36"–48"','48"+'];
+const HEIGHT_TREE=['6"–12"','1\'–1.5\'','1.5\'–2\'','2\'–3\'','3\'–4\'','4\'–5\'','5\'–6\'','6\'–8\'','8\'+'];
+function heightOptsForType(type, current) {
+  const scale = (type==='tree') ? HEIGHT_TREE : HEIGHT_SHRUB;
+  return scale.map(h=>`<option value="${h}" ${h===current?'selected':''}>${h}</option>`).join('');
+}
+
+// ══════════ SHIPPABLE QTY (total minus hold) ══════════
+function invShippable(spId, cont, loc) {
+  return stock.filter(e=>e.spId===spId&&(!cont||e.container===cont)&&(!loc||e.location===loc))
+    .reduce((s,e)=>s+(parseInt(e.qty)||0)-(parseInt(e.holdQty)||0), 0);
+}
+function invHold(spId, cont, loc) {
+  return stock.filter(e=>e.spId===spId&&(!cont||e.container===cont)&&(!loc||e.location===loc))
+    .reduce((s,e)=>s+(parseInt(e.holdQty)||0), 0);
+}
+
+// ══════════ READY-BY DATE SUGGESTIONS ══════════
+function suggestReadyBy(spId, currentHeightRange) {
+  const gr = GROWTH_RATES[spId];
+  if(!gr) return null;
+  const now = new Date();
+  const yr = now.getFullYear();
+  const mo = now.getMonth();
+  // Very slow species
+  if(gr.rate==='very_slow') return 'Fall '+(yr+2);
+  if(gr.rate==='slow') return mo<6?'Fall '+yr:'Spring '+(yr+1);
+  if(gr.rate==='moderate') return mo<3?'Fall '+yr:mo<9?'Fall '+yr:'Spring '+(yr+1);
+  // Fast species — if currently small suggest end of this season
+  if(currentHeightRange&&currentHeightRange.includes('3"')) return 'Fall '+yr;
+  return 'Fall '+yr;
+}
+
+// ══════════ LOCATION MOVE ══════════
+function openMoveStock() {
+  // Build species list from current stock
+  const spInStock = [...new Set(stock.map(e=>e.spId))].sort((a,b)=>spById(a).common.localeCompare(spById(b).common));
+  document.getElementById('move-sp').innerHTML = '<option value="">— Select species —</option>'+
+    spInStock.map(id=>`<option value="${id}">${spById(id).common}</option>`).join('');
+  openM('m-move');
+}
+function buildMoveOptions() {
+  const spId = document.getElementById('move-sp').value;
+  const wrap = document.getElementById('move-options');
+  if(!spId){wrap.innerHTML='';return;}
+  // Group stock entries by location+container
+  const entries = stock.filter(e=>e.spId===spId&&(parseInt(e.qty)||0)>0);
+  if(!entries.length){wrap.innerHTML='<div class="al ala"><span class="ali">⚠️</span><div>No stock found for this species.</div></div>';return;}
+  wrap.innerHTML = entries.map((e,i)=>`
+    <div style="border:1px solid var(--border2);border-radius:var(--r6);padding:10px 12px;margin-bottom:8px">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px">
+        <span class="loc-pill ${LOC_CLASS[e.location]||'loc-vendor'}">${LOC_LABELS[e.location]||e.location}</span>
+        <span class="chip cb2">${e.container}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:12px"><b>${parseInt(e.qty)||0}</b> total · <b>${(parseInt(e.qty)||0)-(parseInt(e.holdQty)||0)}</b> shippable</span>
+        ${e.season?`<span class="chip cgo">${e.season}</span>`:''}
+      </div>
+      <div class="fr fc3">
+        <div class="f"><label>Qty to Move</label><input type="number" id="mv-qty-${i}" min="0" max="${parseInt(e.qty)||0}" placeholder="0"></div>
+        <div class="f"><label>Move To</label>
+          <select id="mv-dest-${i}">
+            ${['office','pump','bt'].filter(l=>l!==e.location).map(l=>`<option value="${l}">${LOC_LABELS[l]}</option>`).join('')}
+          </select>
+        </div>
+        <div class="f" style="justify-content:flex-end;padding-top:18px">
+          <button class="btn bg bsm" onclick="executeMove('${e.id}',${i})">Move →</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function executeMove(entryId, i) {
+  const qty = parseInt(document.getElementById('mv-qty-'+i)?.value)||0;
+  const dest = document.getElementById('mv-dest-'+i)?.value;
+  if(!qty||!dest){toast('Enter qty and destination');return;}
+  const entry = stock.find(e=>e.id===entryId);
+  if(!entry){toast('Entry not found');return;}
+  if(qty>parseInt(entry.qty)){toast('Cannot move more than available');return;}
+  // Decrement source
+  entry.qty = (parseInt(entry.qty)||0) - qty;
+  // Also move proportional hold qty
+  const holdPct = (parseInt(entry.holdQty)||0)/(parseInt(entry.qty)+qty||1);
+  const holdToMove = Math.round(holdPct*qty);
+  entry.holdQty = Math.max(0,(parseInt(entry.holdQty)||0)-holdToMove);
+  // Find or create destination entry
+  const destEntry = stock.find(e=>e.spId===entry.spId&&e.location===dest&&e.container===entry.container&&e.season===entry.season);
+  if(destEntry) {
+    destEntry.qty = (parseInt(destEntry.qty)||0)+qty;
+    destEntry.holdQty = (parseInt(destEntry.holdQty)||0)+holdToMove;
+  } else {
+    stock.push({...entry, id:'stk_'+Date.now(), location:dest, qty, holdQty:holdToMove});
+  }
+  // Remove zero entries
+  stock = stock.filter(e=>(parseInt(e.qty)||0)>0);
+  sv(SK.stock,stock);
+  toast(`✅ Moved ${qty} to ${LOC_LABELS[dest]}`);
+  closeM('m-move');
+  buildInv();buildDash();
+}
+
+// ══════════ HOLD / SUB-SPEC MANAGEMENT ══════════
+function openHoldManager(entryId) {
+  const entry = stock.find(e=>e.id===entryId);
+  if(!entry) return;
+  const sp = spById(entry.spId);
+  const total = parseInt(entry.qty)||0;
+  const currentHold = parseInt(entry.holdQty)||0;
+  const shippable = total - currentHold;
+  const suggestedReady = entry.readyBy || suggestReadyBy(entry.spId, entry.avgHeight);
+  document.getElementById('hold-body').innerHTML = `
+    <div style="background:var(--paper);border-radius:var(--r6);padding:10px 12px;margin-bottom:12px">
+      <div style="font-weight:600;font-size:15px">${sp.common}</div>
+      <div style="font-size:12px;color:var(--ink3);margin-top:2px">${sp.sci} · ${entry.container} · ${LOC_LABELS[entry.location]||entry.location} ${entry.season?'· '+entry.season:''}</div>
+      <div style="margin-top:6px;display:flex;gap:12px;font-size:13px">
+        <span>Total: <b>${total}</b></span>
+        <span style="color:var(--green2)">Shippable: <b>${shippable}</b></span>
+        <span style="color:var(--amber2)">On Hold: <b>${currentHold}</b></span>
+      </div>
+    </div>
+    <div class="fr fc2">
+      <div class="f"><label>Hold Qty (sub-spec / not ready)</label>
+        <input type="number" id="hold-qty" min="0" max="${total}" value="${currentHold}" style="font-size:18px;font-weight:600;text-align:center">
+      </div>
+      <div class="f"><label>Ready-By Date</label>
+        <select id="hold-ready">
+          <option value="">— No date set —</option>
+          ${seasonOptions(entry.readyBy||suggestedReady)}
+        </select>
+        ${suggestedReady?`<div style="font-size:10px;color:var(--ink3);margin-top:2px">💡 Suggested: ${suggestedReady} (based on growth rate)</div>`:''}
+      </div>
+    </div>
+    <div class="f" style="margin-bottom:10px"><label>Notes (why on hold)</label>
+      <input type="text" id="hold-notes" value="${entry.holdNotes||''}" placeholder="e.g. Under 12\", needs more time, root-bound...">
+    </div>
+    <div class="brow">
+      <button class="btn bg" onclick="saveHold('${entryId}')">💾 Save</button>
+      <button class="btn bo" onclick="closeM('m-hold')">Cancel</button>
+    </div>`;
+  // Check if ready-by date has passed and prompt flip
+  if(entry.readyBy && entry.holdQty > 0) {
+    const readySeason = entry.readyBy;
+    const now = new Date();
+    const isFall = readySeason.includes('Fall') && now.getMonth()>=8;
+    const isSpring = readySeason.includes('Spring') && now.getMonth()>=2;
+    const isSummer = readySeason.includes('Summer') && now.getMonth()>=5;
+    const yr = parseInt(readySeason.split(' ')[1])||now.getFullYear();
+    const isPast = yr < now.getFullYear() || (yr===now.getFullYear()&&(isFall||isSpring||isSummer));
+    if(isPast) {
+      document.getElementById('hold-body').insertAdjacentHTML('afterbegin',
+        `<div class="al alg" style="margin-bottom:10px"><span class="ali">🌱</span><div><b>Ready-by date has arrived!</b> ${entry.holdQty} ${sp.common} on hold — are these ready to ship? <button class="btn bg bsm" onclick="flipHoldToAvailable('${entryId}')">✅ Release to Shippable</button></div></div>`);
+    }
+  }
+  openM('m-hold');
+}
+function saveHold(entryId) {
+  const entry = stock.find(e=>e.id===entryId); if(!entry) return;
+  const holdQty = parseInt(document.getElementById('hold-qty').value)||0;
+  const total = parseInt(entry.qty)||0;
+  if(holdQty>total){toast('Hold qty cannot exceed total');return;}
+  entry.holdQty = holdQty;
+  entry.readyBy = document.getElementById('hold-ready').value;
+  entry.holdNotes = document.getElementById('hold-notes').value;
+  sv(SK.stock,stock);
+  closeM('m-hold');
+  toast(`✅ ${holdQty} on hold · ${total-holdQty} shippable`);
+  buildInv();buildDash();
+}
+function flipHoldToAvailable(entryId) {
+  const entry = stock.find(e=>e.id===entryId); if(!entry) return;
+  entry.holdQty = 0; entry.readyBy = ''; entry.holdNotes = '';
+  sv(SK.stock,stock);
+  closeM('m-hold');
+  toast('✅ All plants released to shippable');
+  buildInv();buildDash();
+}
+
+// ══════════ MONTHLY SIZE TRACKING ══════════
+const SK_SIZES = 'bt4_sizes';
+let sizeLog = ld(SK_SIZES)||[];
+function svSizes(){sv(SK_SIZES,sizeLog);}
+
+function openSizeEntry() {
+  const spInStock = [...new Set(stock.map(e=>e.spId))].sort((a,b)=>spById(a).common.localeCompare(spById(b).common));
+  document.getElementById('size-body').innerHTML = `
+    <div class="al alb"><span class="ali">📏</span><div>Monthly inventory day — record average height per species per location. This builds the growth history for better ready-by date predictions.</div></div>
+    <div class="fr fc2">
+      <div class="f"><label>Date</label><input type="date" id="sz-date" value="${today()}"></div>
+      <div class="f"><label>Location</label>
+        <select id="sz-loc">
+          <option value="office">Office Nursery</option>
+          <option value="pump">Pump House</option>
+          <option value="bt">BT Landholdings</option>
+        </select>
+      </div>
+    </div>
+    <div id="sz-rows" style="max-height:400px;overflow-y:auto">
+      ${spInStock.map(spId=>{
+        const sp=spById(spId);
+        const locEntries=stock.filter(e=>e.spId===spId);
+        if(!locEntries.length) return '';
+        return`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border2)">
+          <div style="flex:1;font-size:13px"><b>${sp.common}</b> <span style="font-size:10px;color:var(--ink3)">${sp.type}</span></div>
+          <select id="sz-ht-${spId}" style="font-size:12px;padding:4px 6px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+            <option value="">— No change —</option>
+            ${heightOptsForType(sp.type, '')}
+          </select>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="brow" style="margin-top:10px">
+      <button class="btn bg" onclick="saveSizeEntries()">💾 Save All Heights</button>
+      <button class="btn bo" onclick="closeM('m-sizes')">Cancel</button>
+    </div>`;
+  openM('m-sizes');
+}
+function saveSizeEntries() {
+  const date = document.getElementById('sz-date').value;
+  const loc = document.getElementById('sz-loc').value;
+  let saved = 0;
+  [...new Set(stock.map(e=>e.spId))].forEach(spId=>{
+    const sel = document.getElementById('sz-ht-'+spId);
+    if(!sel||!sel.value) return;
+    sizeLog.push({spId,location:loc,date,avgHeight:sel.value,ts:Date.now()});
+    // Update avgHeight on matching stock entries
+    stock.filter(e=>e.spId===spId&&e.location===loc).forEach(e=>e.avgHeight=sel.value);
+    saved++;
+  });
+  svSizes();sv(SK.stock,stock);
+  closeM('m-sizes');
+  toast(`✅ ${saved} height entries saved`);
+  buildInv();
+}
+
+// ══════════ PRINTABLE INVENTORY ══════════
+function printInventory() {
+  const locations = ['office','pump','bt'];
+  const locs = locations.filter(loc=>stock.some(e=>e.location===loc&&(parseInt(e.qty)||0)>0));
+  if(!locs.length){toast('No stock to print');return;}
+  const w = window.open('','_blank');
+  let pages = locs.map(loc=>{
+    // Get all species at this location, alphabetical
+    const spAtLoc = [...new Set(stock.filter(e=>e.location===loc&&(parseInt(e.qty)||0)>0).map(e=>e.spId))]
+      .sort((a,b)=>spById(a).common.localeCompare(spById(b).common));
+    const rows = spAtLoc.map(spId=>{
+      const sp = spById(spId);
+      const entries = stock.filter(e=>e.spId===spId&&e.location===loc&&(parseInt(e.qty)||0)>0);
+      return entries.map(e=>{
+        const total = parseInt(e.qty)||0;
+        const hold = parseInt(e.holdQty)||0;
+        const ship = total - hold;
+        const job = jobs.find(j=>j.id===e.jobAlloc);
+        const shipDate = job?.outplantDate||'—';
+        return `<tr>
+          <td><b>${sp.common}</b><br><em style="font-size:9px;color:#888">${sp.sci}</em></td>
+          <td style="font-family:monospace">${e.container}</td>
+          <td style="font-family:monospace">${e.season||'—'}</td>
+          <td style="font-family:monospace;font-weight:700;text-align:center">${total}</td>
+          <td style="font-family:monospace;font-weight:700;color:green;text-align:center">${ship}</td>
+          <td style="font-family:monospace;font-weight:700;color:${hold>0?'orange':'#ccc'};text-align:center">${hold||'—'}</td>
+          <td style="font-family:monospace;font-size:10px;color:${hold>0?'orange':'#888'}">${e.readyBy||'—'}</td>
+          <td style="font-size:10px">${job?`<span style="background:${job.color};color:#fff;padding:1px 5px;border-radius:3px;font-size:9px">${job.name}</span>`:'—'}</td>
+          <td style="font-family:monospace;font-size:10px">${shipDate}</td>
+          <td style="border-bottom:1px solid #ccc;min-width:120px"></td>
+        </tr>`;
+      }).join('');
+    }).join('');
+    return `<div style="page-break-after:always">
+      <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #2E6E18;padding-bottom:8px;margin-bottom:12px">
+        <div>
+          <div style="font-size:18px;font-weight:700;color:#2E6E18">Bella Terra LLC — Nursery Inventory</div>
+          <div style="font-size:13px;font-weight:600;color:#555">${LOC_LABELS[loc]}</div>
+        </div>
+        <div style="text-align:right;font-size:11px;color:#888">
+          <div>Printed: ${new Date().toLocaleDateString()}</div>
+          <div>Monthly Inventory · ${new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'})}</div>
+        </div>
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px">
+        <thead><tr style="background:#eee">
+          <th style="padding:5px 6px;text-align:left;border-bottom:2px solid #ccc">Common Name</th>
+          <th style="padding:5px 6px;text-align:left">Container</th>
+          <th style="padding:5px 6px;text-align:left">Season</th>
+          <th style="padding:5px 6px;text-align:center">Total</th>
+          <th style="padding:5px 6px;text-align:center;color:green">Ship OK</th>
+          <th style="padding:5px 6px;text-align:center;color:orange">On Hold</th>
+          <th style="padding:5px 6px;text-align:left">Ready-By</th>
+          <th style="padding:5px 6px;text-align:left">Job</th>
+          <th style="padding:5px 6px;text-align:left">Ship Date</th>
+          <th style="padding:5px 6px;text-align:left">Notes</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div style="margin-top:16px;font-size:9px;color:#888;display:flex;justify-content:space-between">
+        <span>Bella Terra Landscaping LLC · 1342 Dike Rd, Woodland WA 98674 · 360-225-1125</span>
+        <span>Counter: _________________ Date: _________________</span>
+      </div>
+    </div>`;
+  }).join('');
+  w.document.write(`<!DOCTYPE html><html><head><title>Bella Terra Nursery Inventory</title>
+    <style>body{font-family:sans-serif;margin:16px;font-size:11px}td,th{padding:5px 6px;border-bottom:1px solid #eee}
+    @media print{body{margin:8px}.no-print{display:none}}</style></head>
+    <body>${pages}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+// ══════════ WEED LOG ══════════
+const SK_WEED = 'bt4_weedlog';
+let weedLog = ld(SK_WEED)||[];
+function svWeed(){sv(SK_WEED,weedLog);}
+
+function buildWeedLog() {
+  const el = document.getElementById('weed-log-wrap'); if(!el) return;
+  // Recent entries
+  const recent = weedLog.slice(0,10);
+  el.innerHTML = recent.length ? recent.map(entry=>`
+    <div style="border:1px solid var(--border2);border-radius:var(--r6);padding:10px 12px;margin-bottom:8px">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+        <span class="loc-pill ${LOC_CLASS[entry.location]||'loc-vendor'}">${LOC_LABELS[entry.location]||entry.location}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600">${entry.date}</span>
+        <span style="font-size:11px;color:var(--ink3)">Inspector: ${entry.inspector||'—'}</span>
+        <span class="chip ${entry.overallPressure==='Heavy'?'cr':entry.overallPressure==='Moderate'?'ca':'cg'}">${entry.overallPressure||'Light'} pressure</span>
+      </div>
+      ${entry.safecheck?'<span class="chip cg" style="margin-right:4px">✓ Sawdust depth OK</span>':''}
+      ${entry.issues?.length?`<div style="margin-top:6px">${entry.issues.map(issue=>`
+        <div style="font-size:12px;padding:4px 8px;background:var(--amber-lt);border-radius:3px;margin-bottom:3px">
+          <b>${spById(issue.spId).common}</b> — ${issue.pressure} pressure · ${issue.action} ${issue.note?'· '+issue.note:''}
+        </div>`).join('')}</div>`:''}
+    </div>`).join('') : '<div style="color:var(--ink3);padding:10px">No weed logs yet.</div>';
+}
+
+function openWeedLog() {
+  const spInStock = [...new Set(stock.map(e=>e.spId))].sort((a,b)=>spById(a).common.localeCompare(spById(b).common));
+  document.getElementById('weedlog-body').innerHTML = `
+    <div class="fr fc2">
+      <div class="f"><label>Date</label><input type="date" id="wl-date" value="${today()}"></div>
+      <div class="f"><label>Inspector</label><input type="text" id="wl-inspector" placeholder="Name"></div>
+    </div>
+    <div class="fr fc2">
+      <div class="f"><label>Nursery Location</label>
+        <select id="wl-loc">
+          <option value="office">Office Nursery</option>
+          <option value="pump">Pump House</option>
+          <option value="bt">BT Landholdings</option>
+        </select>
+      </div>
+      <div class="f"><label>Overall Weed Pressure</label>
+        <select id="wl-pressure">
+          <option value="None">None</option>
+          <option value="Light">Light</option>
+          <option value="Moderate" selected>Moderate</option>
+          <option value="Heavy">Heavy</option>
+        </select>
+      </div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:10px;cursor:pointer;font-size:13px">
+      <input type="checkbox" id="wl-sawdust" style="width:18px;height:18px;accent-color:var(--green2)">
+      Sawdust depth checked — all pots OK (2" minimum)
+    </label>
+    <div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Problem Areas — Species with Moderate or Heavy Pressure</div>
+    <div id="wl-issues"></div>
+    <button class="btn bo bsm" onclick="addWeedIssueRow('${spInStock.join(',')}')">+ Add Problem Species</button>
+    <div class="brow" style="margin-top:12px">
+      <button class="btn bg" onclick="saveWeedLog()">💾 Save Weed Log</button>
+      <button class="btn bo bsm" onclick="printWeedSheet()">🖨 Print Field Sheet</button>
+      <button class="btn bo" onclick="closeM('m-weedlog')">Cancel</button>
+    </div>`;
+  openM('m-weedlog');
+}
+
+let weedIssueCount = 0;
+function addWeedIssueRow(spIds) {
+  weedIssueCount++;
+  const ids = spIds.split(',');
+  const div = document.createElement('div');
+  div.id = 'wi-'+weedIssueCount;
+  div.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:6px;align-items:end';
+  div.innerHTML = `
+    <div class="f"><label>Species</label>
+      <select style="font-size:12px;padding:5px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option value="">— Select —</option>
+        ${ids.map(id=>`<option value="${id}">${spById(id).common}</option>`).join('')}
+      </select></div>
+    <div class="f"><label>Pressure</label>
+      <select style="font-size:12px;padding:5px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option>Moderate</option><option>Heavy</option>
+      </select></div>
+    <div class="f"><label>Action</label>
+      <select style="font-size:12px;padding:5px;border:1px solid var(--border);border-radius:var(--r4);background:var(--paper)">
+        <option>Hand pulled</option><option>Needs attention</option><option>Monitored</option>
+      </select></div>
+    <button onclick="this.parentElement.remove()" style="border:none;background:none;color:var(--red2);font-size:18px;cursor:pointer;padding-bottom:2px">×</button>`;
+  document.getElementById('wl-issues').appendChild(div);
+}
+
+function saveWeedLog() {
+  const date = document.getElementById('wl-date').value;
+  if(!date){toast('Enter date');return;}
+  const issues = [];
+  document.querySelectorAll('[id^="wi-"]').forEach(row=>{
+    const sels = row.querySelectorAll('select');
+    if(sels[0]?.value) issues.push({spId:sels[0].value, pressure:sels[1]?.value||'Moderate', action:sels[2]?.value||'Hand pulled'});
+  });
+  const entry = {id:'wl_'+Date.now(), date, inspector:document.getElementById('wl-inspector').value,
+    location:document.getElementById('wl-loc').value, overallPressure:document.getElementById('wl-pressure').value,
+    safecheck:document.getElementById('wl-sawdust').checked, issues};
+  weedLog.unshift(entry); svWeed();
+  closeM('m-weedlog'); weedIssueCount=0;
+  toast('✅ Weed log saved'); buildWeedLog();
+}
+
+function printWeedSheet() {
+  const spInStock = [...new Set(stock.map(e=>e.spId))].sort((a,b)=>spById(a).common.localeCompare(spById(b).common));
+  const rows = spInStock.map(spId=>{
+    const sp=spById(spId);
+    const locs=[...new Set(stock.filter(e=>e.spId===spId).map(e=>e.location))];
+    return`<tr><td style="padding:6px 8px;border-bottom:1px solid #eee"><b>${sp.common}</b></td>
+      <td style="padding:6px 8px;border-bottom:1px solid #eee;font-size:10px;color:#888">${sp.sci}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #eee;font-size:11px">${locs.map(l=>LOC_LABELS[l]||l).join(', ')}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #eee"><select style="font-size:10px;padding:2px"><option>None</option><option>Light</option><option>Moderate</option><option>Heavy</option></select></td>
+      <td style="padding:6px 8px;border-bottom:1px solid #eee"><select style="font-size:10px;padding:2px"><option>—</option><option>Hand pulled</option><option>Needs attention</option><option>Monitored</option></select></td>
+      <td style="padding:6px 8px;border-bottom:1px solid #eee;min-width:180px"></td></tr>`;
+  }).join('');
+  const w = window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>Weed Log — Bella Terra</title>
+    <style>body{font-family:sans-serif;font-size:11px;padding:16px}table{width:100%;border-collapse:collapse}
+    th{background:#eee;padding:6px 8px;text-align:left;border-bottom:2px solid #ccc;font-size:9px;text-transform:uppercase}
+    @media print{body{padding:8px}}</style></head><body>
+    <div style="display:flex;justify-content:space-between;border-bottom:3px solid #2E6E18;padding-bottom:8px;margin-bottom:12px">
+      <div><div style="font-size:17px;font-weight:700;color:#2E6E18">Bella Terra LLC — Weekly Weed Inspection</div>
+        <div style="font-size:11px;color:#666">Hand-pull only · No tools in pots · Sawdust depth 2" minimum</div></div>
+      <div style="font-size:11px;color:#888;text-align:right">
+        Date: ___________<br>Inspector: ___________<br>Location: ___________
+      </div>
+    </div>
+    <table><thead><tr><th>Common Name</th><th>Scientific</th><th>Location(s)</th><th>Weed Pressure</th><th>Action Taken</th><th>Notes</th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    <div style="margin-top:16px;padding:10px;background:#f5f5f5;border-radius:5px;font-size:10px">
+      <b>Sawdust depth check:</b> ☐ All pots OK &nbsp;&nbsp; <b>Overall pressure:</b> ☐ None ☐ Light ☐ Moderate ☐ Heavy &nbsp;&nbsp;
+      <b>Pest/disease observed:</b> ________________________
+    </div>
+    <div style="margin-top:8px;font-size:9px;color:#888">Bella Terra Landscaping LLC · 1342 Dike Rd, Woodland WA 98674 · 360-225-1125</div>
+    <script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+// ══════════ UPDATE invShippable FOR SHORTFALL ALERTS ══════════
+// Override invTotal for job fulfillment checks to use shippable only
+function invShippableForJob(spId, cont) {
+  return stock.filter(e=>e.spId===spId&&(!cont||e.container===cont))
+    .reduce((s,e)=>s+(parseInt(e.qty)||0)-(parseInt(e.holdQty)||0), 0);
+}
+
+// ══════════ LOAD / RESET — REAL DATA ══════════
+function loadRealData() {
+  if(ld('bt4_real_loaded')) return;
+  // Wipe all stock quantities — keep OR217 job and Scholls Valley queue if they exist
+  ['bt4_sim_loaded','bt4_stock','bt4_logs','bt4_fr','bt4_fd','bt4_rf','bt4_ip','bt4_ch'].forEach(k=>localStorage.removeItem(k));
+  stock=[]; logs={weed:[],pe:[],irr:[]}; fertRes={}; fertDone={}; redFlags={}; inspPhotos={}; countHistory=[];
+  sv(SK.stock,stock);
+
+  // Fix Oregon White Oak caliper to 1/4" in OR217 if it exists
+  const or217 = jobs.find(j=>j.id==='job_OR217');
+  if(or217) {
+    const owt = (or217.targets||[]).find(t=>t.spId==='oregon_white_oak');
+    if(owt) { owt.caliperSpec='1/4"'; owt.heightSpec='1/4" cal min'; }
+    sv(SK.jobs, jobs);
+  }
+
+  sv('bt4_real_loaded', true);
+  console.log('✅ Real data mode: stock quantities wiped, OR217 preserved, OWO caliper fixed to 1/4"');
+}
+
+// ══════════ LOAD SCHOLLS VALLEY ORDER — FIRST REAL DATA ══════════
+function loadSchollsValley() {
+  if(ld('bt4_scholls_loaded')) return;
+  // Wipe all pre-loaded quantities, keep Scholls queue if already set
+  ['bt4_sim_loaded','bt4_stock','bt4_logs','bt4_fr','bt4_fd','bt4_rf','bt4_ip','bt4_ch'].forEach(k=>localStorage.removeItem(k));
+  stock=[]; logs={weed:[],pe:[],irr:[]}; fertRes={}; fertDone={}; redFlags={}; inspPhotos={}; countHistory=[];
+
+  // ── OR217 JOB — with corrected OWO caliper ──
+  jobs = [{
+    id:'job_OR217', name:'OR217 Sound Wall', client:'Oregon Department of Transportation (ODOT)',
+    color:'#84C441', colorName:'Lime Green',
+    outplantDate:'2026-10-01', hardenDate:'2026-09-01',
+    window:'wet', state:'OR',
+    location:'OR217: OR10–OR99W SEC, Beaverton–Tigard Hwy, Washington County OR',
+    notes:'ODOT Planting Schedule FA02. Signed Magnus P. Bernhardt. Expires 05-31-2026. WSDA inspection required — shipping from WA nursery to Oregon.',
+    complete:false, created:'2026-01-01',
+    targets:[
+      {spId:'oceanspray',        qty:902, container:'#1', heightSpec:'18"–24"', stemForm:'Multi-branch', caliperSpec:'—', spacing:"5' O.C.", mixCode:'SHD'},
+      {spId:'mock_orange',       qty:651, container:'#1', heightSpec:'18"–24"', stemForm:'Multi-branch', caliperSpec:'—', spacing:"5' O.C.", mixCode:'SPL'},
+      {spId:'flowering_currant', qty:391, container:'#1', heightSpec:'18"–24"', stemForm:'Multi-branch', caliperSpec:'—', spacing:"5' O.C.", mixCode:'SRS'},
+      {spId:'nootka_rose',       qty:713, container:'#1', heightSpec:'18"–24"', stemForm:'Multi-branch', caliperSpec:'—', spacing:"5' O.C.", mixCode:'SRN'},
+      {spId:'snowberry',         qty:975, container:'#1', heightSpec:'18"–24"', stemForm:'Multi-branch', caliperSpec:'—', spacing:"5' O.C.", mixCode:'SSA'},
+      {spId:'red_twig_dogwood',  qty:145, container:'#1', heightSpec:'18"–24"', stemForm:'Multi-branch', caliperSpec:'—', spacing:"3' O.C.", mixCode:'SCS'},
+      {spId:'scouler_willow',    qty:166, container:'live stake', heightSpec:"1.5'–2'", stemForm:'Live stake', caliperSpec:'—', spacing:"3' O.C.", mixCode:'SSS'},
+      {spId:'serviceberry',      qty:143, container:'bare root', heightSpec:'1/2" cal min', stemForm:'Single trunk', caliperSpec:'1/2"', spacing:'N/A', mixCode:'TPC'},
+      {spId:'bigleaf_maple',     qty:60,  container:'bare root', heightSpec:'1/2" cal min', stemForm:'Single trunk', caliperSpec:'1/2"', spacing:'N/A', mixCode:'TFL'},
+      {spId:'western_crabapple', qty:101, container:'bare root', heightSpec:'1/2" cal min', stemForm:'Single trunk', caliperSpec:'1/2"', spacing:'N/A', mixCode:'TQG'},
+      {spId:'oregon_white_oak',  qty:246, container:'bare root', heightSpec:'1/4" cal min', stemForm:'Single trunk', caliperSpec:'1/4"', spacing:'N/A', mixCode:'TQG'},
+      {spId:'cascara',           qty:123, container:'bare root', heightSpec:'1/2" cal min', stemForm:'Single trunk', caliperSpec:'1/2"', spacing:'N/A', mixCode:'TRP'},
+      {spId:'ponderosa_pine',    qty:95,  container:'#5', heightSpec:"2'–3'", stemForm:'Single trunk', caliperSpec:'—', spacing:'N/A', mixCode:'TPM'},
+      {spId:'boston_ivy',        qty:1861,container:'#1', heightSpec:'18"–24"', stemForm:"Along wall 1' from wall", caliperSpec:'—', spacing:"3' O.C.", mixCode:'Sound Wall'},
+    ]
+  }];
+  sv(SK.jobs, jobs);
+
+  // ── SCHOLLS VALLEY SO-26094 → POTTING QUEUE ──
+  const schollsItems = [
+    {spId:'snowberry',         qtyReceived:1000, qtyPotted:0, targetContainer:'#1', pruneFlag:{flag:true,job:'OR217',spec:'Multi-branch'}, caliperFlag:null, notes:''},
+    {spId:'oceanspray',        qtyReceived:1000, qtyPotted:0, targetContainer:'#1', pruneFlag:{flag:true,job:'OR217',spec:'Multi-branch'}, caliperFlag:null, notes:''},
+    {spId:'flowering_currant', qtyReceived:300,  qtyPotted:0, targetContainer:'#1', pruneFlag:{flag:true,job:'OR217',spec:'Multi-branch'}, caliperFlag:null, notes:''},
+    {spId:'red_twig_dogwood',  qtyReceived:200,  qtyPotted:0, targetContainer:'#1', pruneFlag:{flag:true,job:'OR217',spec:'Multi-branch'}, caliperFlag:null, notes:''},
+    {spId:'nootka_rose',       qtyReceived:75,   qtyPotted:0, targetContainer:'#1', pruneFlag:{flag:true,job:'OR217',spec:'Multi-branch'}, caliperFlag:null, notes:''},
+    {spId:'serviceberry',      qtyReceived:300,  qtyPotted:0, targetContainer:'check', pruneFlag:null, caliperFlag:{flag:true,job:'OR217',spec:'1/2"'}, notes:'Sort at pot-up: ≥1/2" → #5, undersized → #1'},
+    {spId:'cascara',           qtyReceived:130,  qtyPotted:0, targetContainer:'check', pruneFlag:null, caliperFlag:{flag:true,job:'OR217',spec:'1/2"'}, notes:'Sort at pot-up: ≥1/2" → #5, undersized → #1'},
+    {spId:'western_crabapple', qtyReceived:125,  qtyPotted:0, targetContainer:'check', pruneFlag:null, caliperFlag:{flag:true,job:'OR217',spec:'1/2"'}, notes:'Sort at pot-up: ≥1/2" → #5, undersized → #1'},
+    {spId:'bigleaf_maple',     qtyReceived:50,   qtyPotted:0, targetContainer:'check', pruneFlag:null, caliperFlag:{flag:true,job:'OR217',spec:'1/2"'}, notes:'Sort at pot-up: ≥1/2" → #5, undersized → #1'},
+  ];
+  // Only set potting queue if not already set
+  if(!ld(SK_POT)||!ld(SK_POT).length) {
+    pottingQueue = [{id:'pq_scholls_26094', vendor:'Scholls Valley Native Nursery', invoiceNum:'SO-26094',
+      invoiceDate:'2026-03-16', jobAlloc:'job_OR217', receivedDate:'2026-03-24', status:'heeled',
+      items:schollsItems, totalCost:3085.50, vendorContact:'sales@schollsvalley.com · (503) 470-0420'}];
+    svPQ();
+  }
+  sv(SK.stock, stock);
+  sv('bt4_scholls_loaded', true);
+  console.log('✅ Clean start: OR217 + Scholls Valley queue loaded. No pre-loaded stock quantities.');
+}
+
+// ══════════ TRUCK CAPACITY ══════════
+const TRUCK_CAPACITY={'#1':4000,'#2':2500,'#3':1800,'#5':1200,'plug':6000,'4in':5000,'bare root':5000,'live stake':8000};
+function loadsNeeded(qty,container){return Math.ceil(qty/(TRUCK_CAPACITY[container]||4000));}
+function totesNeeded(qty,container){const e={'#1':1,'#2':1.6,'#3':2.2,'#5':3.3,'plug':0.5,'4in':0.7};return Math.ceil((qty*(e[container]||1))/1000);}
+
+// ══════════ UPDATE buildInv TO SHOW HOLD/SHIPPABLE + MOVE BUTTON ══════════
+const _origBuildInv = buildInv;
+// Override buildInv to add season, hold, move columns and print button
+function buildInv(){
+  const lf=document.getElementById('inv-loc')?.value||'';
+  const tf=document.getElementById('inv-type')?.value||'';
+  const cf=document.getElementById('inv-cont')?.value||'';
+  // Add print button if not already there
+  const invHdr=document.querySelector('#sc-inv .stag');
+  let html='';
+  const sortedSpecies=[...masterSpecies].sort((a,b)=>a.common.localeCompare(b.common));
+  sortedSpecies.filter(s=>(!tf||s.type===tf)).forEach(s=>{
+    const entries=stock.filter(e=>e.spId===s.id&&(!lf||e.location===lf)&&(!cf||e.container===cf)&&(parseInt(e.qty)||0)>0);
+    if(!entries.length)return;
+    const total=entries.reduce((sum,e)=>sum+(parseInt(e.qty)||0),0);
+    const hold=entries.reduce((sum,e)=>sum+(parseInt(e.holdQty)||0),0);
+    const ship=total-hold;
+    const history=countHistory.filter(h=>h.spId===s.id).slice(0,3);
+    html+=`<div class="card">
+      <div class="ch"><div class="chl">
+        <div class="srow-icon" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:${s.type==='tree'?'#d4edda':s.type==='shrub'?'#fff3cd':s.type==='fern'?'#d4edda':'#d1ecf1'}">${s.type==='tree'?'🌲':s.type==='shrub'?'🌿':s.type==='fern'?'🌿':'🌾'}</div>
+        <div><div class="ctitle">${s.common}
+          <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:400;color:var(--green2)"> ${ship.toLocaleString()} ship</span>
+          ${hold>0?`<span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:400;color:var(--amber2)"> · ${hold.toLocaleString()} hold</span>`:''}
+          ${waterSunBadge(s)}
+          <span class="chip ${s.native==='pnw'?'cg':'cr'}" style="margin-left:4px">${s.native==='pnw'?'PNW':'Non-native'}</span>
+        </div>
+        <div class="csub" style="font-style:italic">${s.sci}</div></div>
+      </div>
+      <button class="btn bo bsm" onclick="openMoveStock()">↔ Move</button>
+      ${redFlags[s.id]?'<span class="chip cr">🚩 Hold</span>':''}</div>
+      <div style="overflow-x:auto">
+        <table class="tbl"><thead><tr><th>Location</th><th>Container</th><th>Season</th><th>Total</th><th style="color:var(--green2)">Shippable</th><th style="color:var(--amber2)">On Hold</th><th>Ready-By</th><th>Avg Height</th><th>Job</th><th>Actions</th></tr></thead>
+        <tbody>${entries.map(e=>{
+          const job=jobs.find(j=>j.id===e.jobAlloc);
+          const tot=parseInt(e.qty)||0;const hld=parseInt(e.holdQty)||0;const shp=tot-hld;
+          return`<tr>
+            <td><span class="loc-pill ${LOC_CLASS[e.location]||'loc-vendor'}">${LOC_LABELS[e.location]||e.location}</span></td>
+            <td style="font-family:'DM Mono',monospace;font-size:11px">${e.container}</td>
+            <td><span class="chip cgo" style="font-size:10px">${e.season||'—'}</span></td>
+            <td style="font-family:'DM Mono',monospace;font-weight:600">${tot}</td>
+            <td style="font-family:'DM Mono',monospace;font-weight:700;color:var(--green2)">${shp}</td>
+            <td style="font-family:'DM Mono',monospace;font-weight:700;color:${hld>0?'var(--amber2)':'var(--ink4)'}">${hld||'—'}</td>
+            <td style="font-size:11px;color:${hld>0?'var(--amber2)':'var(--ink3)'}">${e.readyBy||'—'}</td>
+            <td style="font-size:11px">${e.avgHeight||'—'}</td>
+            <td style="font-size:11px">${job?`<span style="background:${job.color};color:#fff;padding:1px 6px;border-radius:3px;font-size:10px">${job.name}</span>`:''}</td>
+            <td><button class="btn bo bsm" onclick="openHoldManager('${e.id}')">🏷 Hold</button></td>
+          </tr>`;
+        }).join('')}</tbody></table>
+      </div>
+      ${history.length?`<div style="padding:6px 14px;border-top:1px solid var(--border2);background:var(--paper)">
+        <div style="font-size:9px;font-family:'DM Mono',monospace;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px">Count History</div>
+        ${history.map(h=>`<div style="font-size:11px;font-family:'DM Mono',monospace;color:var(--ink3)">${h.date} · ${LOC_LABELS[h.location]||'—'} · qty: <b>${h.qty}</b></div>`).join('')}
+      </div>`:''}
+    </div>`;
+  });
+  document.getElementById('inv-wrap').innerHTML=html||'<div class="card"><div class="cb" style="color:var(--ink3)">No stock entries match this filter.</div></div>';
+  const sel=document.getElementById('as-sp');
+  if(sel){sel.innerHTML='<option value="">— Select species —</option>'+[...masterSpecies].sort((a,b)=>a.common.localeCompare(b.common)).map(s=>`<option value="${s.id}">${s.common} (${s.sci})</option>`).join('');}
+}
+
+// ══════════ UPDATE saveStock TO INCLUDE SEASON + HEIGHT ══════════
+const _origSaveStock = saveStock;
+function saveStock(){
+  const spId=document.getElementById('as-sp').value;if(!spId){toast('Select a species');return;}
+  const qty=parseInt(document.getElementById('as-qty').value)||0;if(qty<=0){toast('Enter qty > 0');return;}
+  const dateVal=document.getElementById('as-date').value||today();
+  const autoSeason=seasonFromDate(dateVal);
+  const seasonEl=document.getElementById('as-season');
+  const season=seasonEl?.value||autoSeason;
+  const entry={id:'stk_'+Date.now(),spId,container:document.getElementById('as-cont').value,qty,
+    location:document.getElementById('as-loc').value,origin:document.getElementById('as-origin').value,
+    height:document.getElementById('as-ht').value,avgHeight:document.getElementById('as-ht').value,
+    season,dateAdded:dateVal,notes:document.getElementById('as-notes').value,
+    jobAlloc:document.getElementById('as-job').value,holdQty:0,holdNotes:'',readyBy:''};
+  stock.push(entry);sv(SK.stock,stock);
+  closeM('m-addstock');toast('✅ '+qty+' '+spById(spId).common+' added · '+season);
+  buildInv();buildDash();
+}
+
+// ══════════ UPDATE buildDash TO USE SHIPPABLE QTY FOR SHORTFALLS ══════════
+// Patch shortfall check to use invShippableForJob
+const _origBuildDash = buildDash;
+function buildDash(){
+  document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  const total=stock.reduce((s,e)=>s+(parseInt(e.qty)||0),0);
+  const ship=stock.reduce((s,e)=>s+(parseInt(e.qty)||0)-(parseInt(e.holdQty)||0),0);
+  const hold=stock.reduce((s,e)=>s+(parseInt(e.holdQty)||0),0);
+  const activeJobs=jobs.filter(j=>!j.complete).length;
+  const flags=Object.values(redFlags).filter(Boolean).length;
+  document.getElementById('hdr-stat').textContent=ship.toLocaleString()+' shippable · '+hold.toLocaleString()+' on hold';
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="sb"><div class="sn" style="color:var(--green3)">${ship.toLocaleString()}</div><div class="sl">Shippable</div></div>
+    <div class="sb"><div class="sn" style="color:var(--amber2)">${hold.toLocaleString()}</div><div class="sl">On Hold</div></div>
+    <div class="sb"><div class="sn" style="color:var(--blue2)">${activeJobs}</div><div class="sl">Active Jobs</div></div>`;
+  let flagHtml='';
+  const now=new Date();
+  jobs.filter(j=>!j.complete&&j.state==='OR').forEach(j=>{
+    if(!j.outplantDate)return;
+    const outplant=new Date(j.outplantDate);
+    const daysOut=Math.round((outplant-now)/(1000*60*60*24));
+    if(daysOut<=21&&daysOut>0)flagHtml+=`<div class="flag-or"><div style="font-weight:700;color:var(--amber2)">⚠️ WSDA INSPECTION DUE — ${j.name} ships to Oregon in ${daysOut} days</div><div style="font-size:12px;color:var(--amber);margin-top:4px">Contact: Sara Welch · <a href="mailto:swelch@agr.wa.gov">swelch@agr.wa.gov</a> · ~2 week lead time</div></div>`;
+  });
+  // Check hold ready-by dates
+  stock.forEach(e=>{
+    if(e.readyBy&&(parseInt(e.holdQty)||0)>0){
+      const sp=spById(e.spId);const yr=parseInt(e.readyBy.split(' ')[1])||0;
+      const season=e.readyBy.split(' ')[0];const m=now.getMonth();
+      const seasonPast=(season==='Spring'&&m>=2)||(season==='Summer'&&m>=5)||(season==='Fall'&&m>=8)||(season==='Winter'&&m>=11);
+      if(yr<=now.getFullYear()&&seasonPast)flagHtml+=`<div class="al alg"><span class="ali">🌱</span><div><b>${sp.common}</b> — ${e.holdQty} plants on hold reached ready-by date (${e.readyBy}). <a href="#" onclick="openHoldManager('${e.id}');return false" style="color:var(--green);font-weight:600">Review now →</a></div></div>`;
+    }
+  });
+  document.getElementById('dash-flags').innerHTML=flagHtml;
+  let alerts='';
+  jobs.filter(j=>!j.complete).forEach(j=>{
+    (j.targets||[]).forEach(t=>{
+      const have=invShippableForJob(t.spId,t.container);const need=parseInt(t.qty)||0;
+      if(have>=need)return;
+      const sp=spById(t.spId);const sizeMap=invBySize(t.spId);
+      const smaller=Object.keys(sizeMap).filter(sz=>isSmaller(sz,t.container)&&sizeMap[sz]>0);
+      const pipelineQty=smaller.reduce((s,sz)=>s+sizeMap[sz],0);
+      if(pipelineQty>0){
+        const gr=GROWTH_RATES[t.spId];const warn=gr&&gr.rate==='very_slow'?'⛔':gr?.rate==='slow'?'⚠️':'';
+        alerts+=`<div class="al ala"><span class="ali">⬆️</span><div><b>${j.name} — ${sp.common}:</b> Need ${need} × ${t.container}. Have ${have} shippable. <b>${pipelineQty} in pipeline ${warn}</b> — <a href="#" onclick="openUpsizePrompt('${t.spId}','${t.container}','${j.id}');return false" style="color:var(--amber2);font-weight:600">Review ↗</a></div></div>`;
+      } else {
+        alerts+=`<div class="al alr"><span class="ali">⚠️</span><div><b>${j.name} — ${sp.common}:</b> Need ${need} × ${t.container}, have ${have} shippable <span class="chip cr">SHORT ${need-have}</span> — <a href="#" onclick="generateRFQ('${j.id}','${t.spId}');return false" style="color:var(--red2);font-weight:600">Generate RFQ →</a></div></div>`;
+      }
+    });
+  });
+  document.getElementById('dash-alerts').innerHTML=alerts;
+  let jhtml='';
+  if(!jobs.length)jhtml='<div class="card"><div class="cb" style="color:var(--ink3)">No jobs yet.</div></div>';
+  jobs.filter(j=>!j.complete).forEach(j=>{
+    const total=(j.targets||[]).reduce((s,t)=>s+(parseInt(t.qty)||0),0);
+    jhtml+=`<div class="card" style="cursor:pointer" onclick="openJobDetail('${j.id}')">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 14px">
+        <span style="background:${j.color};width:14px;height:14px;border-radius:3px;border:1px solid rgba(0,0,0,.2);flex-shrink:0"></span>
+        <div style="flex:1"><div style="font-weight:600">${j.name} <span style="font-size:11px;color:var(--ink3);font-weight:400">— ${j.client||''}</span></div>
+          <div style="font-size:11px;color:var(--ink3)">${j.location||''} ${j.outplantDate?'· '+j.outplantDate:''} ${j.state==='OR'?'<span class="chip ca">OR ⚠️</span>':''}</div></div>
+        <div style="font-size:11px;color:var(--ink3)">${(j.targets||[]).length} spp · ${total.toLocaleString()}</div>
+        <span style="color:var(--ink4);font-size:18px">›</span>
+      </div></div>`;
+  });
+  document.getElementById('dash-jobs').innerHTML=jhtml;
+  populateJobSelects();
+}
+
+// ══════════ INIT ══════════
+document.getElementById('hdr-date').textContent=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+loadSchollsValley();
+// Sort species master alphabetically
+masterSpecies.sort((a,b)=>a.common.localeCompare(b.common));
+buildJobSpRows();
+buildDash();
+buildPottingQueue();
+buildWeedLog();
+populateJobSelects();
+const invJobSel=document.getElementById('inv-job');
+if(invJobSel){invJobSel.innerHTML='<option value="">— General stock —</option>'+jobs.filter(j=>!j.complete).map(j=>`<option value="${j.id}">${j.name}</option>`).join('');}
+document.getElementById('as-sp').innerHTML='<option value="">— Select species —</option>'+[...masterSpecies].sort((a,b)=>a.common.localeCompare(b.common)).map(s=>`<option value="${s.id}">${s.common} (${s.sci})</option>`).join('');
+document.getElementById('as-date').value=today();
+
+</script>
+<!-- LOCATION MOVE -->
+<div class="mbg" id="m-move">
+  <div class="modal">
+    <div class="mh"><div class="mt">↔ Move Stock</div><button class="mc" onclick="closeM('m-move')">×</button></div>
+    <div class="mb">
+      <div class="f" style="margin-bottom:10px">
+        <label>Species to Move</label>
+        <select id="move-sp" onchange="buildMoveOptions()">
+          <option value="">— Select species —</option>
+        </select>
+      </div>
+      <div id="move-options"></div>
+      <div class="brow"><button class="btn bo" onclick="closeM('m-move')">Cancel</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOLD MANAGER -->
+<div class="mbg" id="m-hold">
+  <div class="modal">
+    <div class="mh"><div class="mt">🏷 Hold / Sub-Spec Manager</div><button class="mc" onclick="closeM('m-hold')">×</button></div>
+    <div class="mb" id="hold-body"></div>
+  </div>
+</div>
+
+<!-- MONTHLY SIZE ENTRY -->
+<div class="mbg" id="m-sizes">
+  <div class="modal" style="max-width:600px">
+    <div class="mh"><div class="mt">📏 Monthly Size Entry</div><button class="mc" onclick="closeM('m-sizes')">×</button></div>
+    <div class="mb" id="size-body"></div>
+  </div>
+</div>
+
+<!-- WEED LOG -->
+<div class="mbg" id="m-weedlog">
+  <div class="modal" style="max-width:660px">
+    <div class="mh"><div class="mt">🌿 Weekly Weed Inspection</div><button class="mc" onclick="closeM('m-weedlog')">×</button></div>
+    <div class="mb" id="weedlog-body"></div>
+  </div>
+</div>
+
+
